@@ -1,0 +1,2890 @@
+{{ 'bootstrap.min.css' | asset_url | stylesheet_tag }}
+
+<style>
+  .custom-product-steps {
+    display: flex;
+    gap: 2.8vw;
+    align-items: center;
+    padding: 4.2vw 1.4vw;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .custom-product-steps__image {
+    flex: 1;
+    max-width: 50%;
+  }
+
+  .custom-product-steps__image img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 0.6vw;
+    transition: opacity 0.3s ease;
+  }
+
+  .custom-product-steps__image {
+    position: relative;
+  }
+
+  .custom-product-steps__image .default-image,
+  .custom-product-steps__image .option-image {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 0.6vw;
+    transition: opacity 0.3s ease;
+  }
+
+  .custom-product-steps__image .option-image {
+    display: none;
+  }
+
+  .custom-product-steps__image .option-image.active {
+    display: block;
+  }
+
+  .custom-product-steps__image.has-active-option .default-image {
+    display: none;
+  }
+
+  .custom-product-steps__image[data-step-image] {
+    display: none;
+  }
+
+  .custom-product-steps__image[data-step-image].active-step {
+    display: block;
+  }
+
+  .custom-product-steps__content {
+    flex: 1;
+    max-width: 50%;
+  }
+
+  .custom-product-steps__step-content {
+    display: none;
+  }
+
+  .custom-product-steps__step-content.active-step {
+    display: block;
+  }
+
+  .custom-product-steps__header {
+    margin-bottom: 2.1vw;
+  }
+
+  .custom-product-steps__header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.85vw;
+  }
+
+  .custom-product-steps__package-title {
+    font-size: 1vw;
+    font-weight: 700;
+    color: #1f1f1f;
+    text-transform: uppercase;
+    letter-spacing: 0.03vw;
+  }
+
+  .custom-product-steps__step-indicator {
+    font-size: 1vw;
+    font-weight: 700;
+    color: #1f1f1f;
+    text-transform: uppercase;
+    letter-spacing: 0.03vw;
+  }
+
+  .custom-product-steps__progress-bar {
+    display: flex;
+    gap: 0.6vw;
+    align-items: center;
+  }
+
+  .custom-product-steps__progress-step {
+    flex: 1;
+    height: 0.3vw;
+    background-color: #e0e0e0;
+    border-radius: 0.14vw;
+    transition: background-color 0.3s ease;
+  }
+
+  .custom-product-steps__progress-step.active {
+    background-color: #377f73;
+  }
+
+  .custom-product-steps__progress-step.completed {
+    background-color: #377f73;
+  }
+
+  .custom-product-steps__product-info {
+    margin-bottom: 2.8vw;
+  }
+
+  .custom-product-steps__product-title {
+    font-size: 2.8vw;
+    font-weight: 700;
+    margin-bottom: 0.7vw;
+    color: #1f1f1f;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .custom-product-steps__price {
+    font-size: 2.8vw;
+    font-weight: 700;
+    color: #1f1f1f;
+  }
+
+  .custom-product-steps__description {
+    font-size: 1.2vw;
+    color: #666;
+    margin-bottom: 2.1vw;
+  }
+
+  .custom-product-steps__options {
+    display: flex;
+    flex-direction: column;
+    gap: 1.05vw;
+    margin-bottom: 2.1vw;
+  }
+
+  .custom-product-steps__option {
+    border: 0.14vw solid #e0e0e0;
+    border-radius: 0.85vw;
+    padding: 1.4vw;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+
+  .custom-product-steps__option:hover {
+    border-color: #377f73;
+  }
+
+  .custom-product-steps__option.selected {
+    border-color: #377f73;
+    background-color: #e8f5f3;
+  }
+
+  .custom-product-steps__option-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.7vw;
+  }
+
+  .custom-product-steps__option-radio {
+    display: flex;
+    align-items: center;
+    gap: 0.85vw;
+  }
+
+  .custom-product-steps__option-radio input[type="radio"] {
+    width: 1.4vw;
+    height: 1.4vw;
+    accent-color: #377f73;
+    cursor: pointer;
+  }
+
+  .custom-product-steps__option-label {
+    font-size: 1.2vw;
+    font-weight: 600;
+    color: #1f1f1f;
+    cursor: pointer;
+  }
+
+  .custom-product-steps__option-price {
+    font-size: 1.2vw;
+    font-weight: 700;
+    color: #1f1f1f;
+  }
+
+  .custom-product-steps__option-features {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6vw;
+    margin-left: 2.25vw;
+  }
+
+  .custom-product-steps__feature {
+    display: flex;
+    align-items: center;
+    gap: 0.6vw;
+    font-size: 1vw;
+    color: #666;
+  }
+
+  .custom-product-steps__feature svg {
+    color: #377f73;
+    width: 1.1vw;
+    height: 1.1vw;
+  }
+
+  .custom-product-steps__option-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    margin-left: auto;
+    color: #377f73;
+    transition: transform 0.3s ease;
+  }
+
+  .custom-product-steps__option-toggle svg {
+    width: 1.4vw;
+    height: 1.4vw;
+  }
+
+  .custom-product-steps__option-toggle.expanded svg {
+    transform: rotate(180deg);
+  }
+
+  .custom-product-steps__expandable-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+
+  .custom-product-steps__expandable-content.expanded {
+    max-height: 500vw;
+    margin-top: 1.4vw;
+  }
+
+  .custom-product-steps__expandable-description {
+    font-size: 1vw;
+    color: #666;
+    margin-bottom: 1.4vw;
+    line-height: 1.6;
+  }
+
+  .custom-product-steps__nested-checkboxes {
+    display: flex;
+    flex-direction: column;
+    gap: 1.05vw;
+    margin-top: 1.4vw;
+    padding: 1.4vw;
+    background-color: #f9f9f9;
+    border-radius: 0.6vw;
+  }
+
+  .custom-product-steps__nested-checkbox {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.85vw;
+    padding: 1.4vw;
+    border: 0.1vw solid #e0e0e0;
+    border-radius: 0.6vw;
+    background-color: white;
+    transition: all 0.3s ease;
+  }
+
+  .custom-product-steps__nested-checkbox:hover {
+    border-color: #377f73;
+    background-color: #f9f9f9;
+  }
+
+  .custom-product-steps__nested-checkbox.selected {
+    border-color: #377f73;
+    background-color: #e8f5f3;
+  }
+
+  .custom-product-steps__nested-checkbox input[type="checkbox"] {
+    width: 1.2vw;
+    height: 1.2vw;
+    accent-color: #377f73;
+    cursor: pointer;
+    margin-top: 0.2vw;
+    flex-shrink: 0;
+  }
+
+  .custom-product-steps__nested-checkbox-image {
+    width: 6vw;
+    height: 6vw;
+    object-fit: contain;
+    flex-shrink: 0;
+    border-radius: 0.4vw;
+  }
+
+  .custom-product-steps__nested-checkbox-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6vw;
+  }
+
+  .custom-product-steps__nested-checkbox-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .custom-product-steps__nested-checkbox-label {
+    font-size: 1.1vw;
+    font-weight: 600;
+    color: #1f1f1f;
+    cursor: pointer;
+  }
+
+  .custom-product-steps__nested-checkbox-price {
+    font-weight: 700;
+    font-size: 1.1vw;
+    color: #1f1f1f;
+  }
+
+  .custom-product-steps__nested-checkbox-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4vw;
+  }
+
+  .custom-product-steps__nested-checkbox-detail {
+    font-size: 0.9vw;
+    color: #666;
+    line-height: 1.4;
+  }
+
+  .custom-product-steps__nested-checkbox-detail strong {
+    color: #1f1f1f;
+    font-weight: 600;
+  }
+
+  .custom-product-steps__quantity-selector {
+    display: flex;
+    align-items: center;
+    gap: 0.85vw;
+    margin-top: 0.7vw;
+    padding: 0.85vw;
+    background-color: #f5f5f5;
+    border-radius: 0.4vw;
+    width: fit-content;
+  }
+
+  .custom-product-steps__quantity-btn {
+    width: 2vw;
+    height: 2vw;
+    border: 0.1vw solid #e0e0e0;
+    background-color: white;
+    border-radius: 0.3vw;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2vw;
+    font-weight: 600;
+    color: #1f1f1f;
+    transition: all 0.2s ease;
+  }
+
+  .custom-product-steps__quantity-btn:hover {
+    border-color: #377f73;
+    background-color: #e8f5f3;
+  }
+
+  .custom-product-steps__quantity-input {
+    width: 3vw;
+    text-align: center;
+    border: none;
+    background: transparent;
+    font-size: 1.1vw;
+    font-weight: 600;
+    color: #1f1f1f;
+  }
+
+  .custom-product-steps__buttons {
+    display: flex;
+    gap: 1.05vw;
+    margin-top: 2.1vw;
+  }
+
+  .custom-product-steps__button {
+    flex: 1;
+    padding: 1.25vw;
+    background-color: #377f73;
+    color: white;
+    border: none;
+    border-radius: 0.6vw;
+    font-size: 1.2vw;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.07vw;
+  }
+
+  .custom-product-steps__button:hover {
+    background-color: #2d6659;
+  }
+
+  .custom-product-steps__button--back {
+    background-color: #e0e0e0;
+    color: #1f1f1f;
+  }
+
+  .custom-product-steps__button--back:hover {
+    background-color: #d0d0d0;
+  }
+
+  .custom-product-steps__button--custom {
+    background-color: #ffffff;
+    color: #377f73;
+    border: 0.14vw solid #377f73;
+  }
+
+  .custom-product-steps__button--custom:hover {
+    background-color: #377f73;
+    color: #ffffff;
+  }
+
+  .custom-product-steps__checkboxes {
+    margin-top: 2.1vw;
+    margin-bottom: 2.1vw;
+  }
+
+  .custom-product-steps__checkbox-option {
+    margin-bottom: 1.4vw;
+  }
+
+  .custom-product-steps__checkbox-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.85vw;
+  }
+
+  .custom-product-steps__checkbox-input {
+    width: 1.4vw;
+    height: 1.4vw;
+    accent-color: #377f73;
+    cursor: pointer;
+    margin-top: 0.2vw;
+    flex-shrink: 0;
+  }
+
+  .custom-product-steps__checkbox-label {
+    font-size: 1.2vw;
+    font-weight: 600;
+    color: #1f1f1f;
+    cursor: pointer;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 0.6vw;
+  }
+
+  .custom-product-steps__checkbox-price {
+    color: #377f73;
+    font-weight: 700;
+  }
+
+  .custom-product-steps__checkbox-description {
+    font-size: 1vw;
+    color: #666;
+    margin-left: 2.25vw;
+    margin-top: 0.4vw;
+  }
+
+  .custom-product-steps__checkbox-note {
+    font-size: 0.9vw;
+    color: #999;
+    font-style: italic;
+    margin-left: 2.25vw;
+    margin-top: 0.4vw;
+  }
+
+  @media (max-width: 768px) {
+    .custom-product-steps {
+      flex-direction: column;
+      padding: 2.8vw 1.4vw;
+    }
+
+    .custom-product-steps__image,
+    .custom-product-steps__content {
+      max-width: 100%;
+    }
+
+    .custom-product-steps__product-title {
+      font-size: 5vw;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1.4vw;
+    }
+
+    .custom-product-steps__price {
+      font-size: 5vw;
+    }
+
+    .custom-product-steps__package-title,
+    .custom-product-steps__step-indicator {
+      font-size: 2.5vw;
+    }
+
+    .custom-product-steps__description {
+      font-size: 2.8vw;
+    }
+
+    .custom-product-steps__option-label,
+    .custom-product-steps__option-price {
+      font-size: 2.8vw;
+    }
+
+    .custom-product-steps__feature {
+      font-size: 2.5vw;
+    }
+
+    .custom-product-steps__button {
+      font-size: 2.8vw;
+      padding: 2.5vw;
+    }
+
+    .custom-product-steps__checkbox-input {
+      width: 3.5vw;
+      height: 3.5vw;
+    }
+
+    .custom-product-steps__checkbox-label {
+      font-size: 2.8vw;
+    }
+
+    .custom-product-steps__checkbox-description {
+      font-size: 2.5vw;
+      margin-left: 4.5vw;
+    }
+
+    .custom-product-steps__checkbox-note {
+      font-size: 2.2vw;
+      margin-left: 4.5vw;
+    }
+
+    .custom-product-steps__option-toggle svg {
+      width: 3.5vw;
+      height: 3.5vw;
+    }
+
+    .custom-product-steps__expandable-description {
+      font-size: 2.5vw;
+    }
+
+    .custom-product-steps__nested-checkbox {
+      flex-direction: column;
+      padding: 2.8vw;
+    }
+
+    .custom-product-steps__nested-checkbox input[type="checkbox"] {
+      width: 3vw;
+      height: 3vw;
+    }
+
+    .custom-product-steps__nested-checkbox-image {
+      width: 15vw;
+      height: 15vw;
+    }
+
+    .custom-product-steps__nested-checkbox-label {
+      font-size: 2.8vw;
+    }
+
+    .custom-product-steps__nested-checkbox-price {
+      font-size: 2.8vw;
+    }
+
+    .custom-product-steps__nested-checkbox-detail {
+      font-size: 2.2vw;
+    }
+
+    .custom-product-steps__quantity-btn {
+      width: 5vw;
+      height: 5vw;
+      font-size: 3vw;
+    }
+
+    .custom-product-steps__quantity-input {
+      width: 6vw;
+      font-size: 2.8vw;
+    }
+  }
+</style>
+
+<section class="custom-product-steps" data-batch-mode="{{ section.settings.batch_add_to_cart }}">
+  {% comment %} Image - Dynamic images for each option {% endcomment %}
+  {% if section.blocks.size > 0 %}
+    {% for block in section.blocks %}
+      <div class="custom-product-steps__image" data-step-image="{{ block.settings.step_number }}" id="step-{{ block.settings.step_number }}-images">
+        {% comment %} Option-specific images {% endcomment %}
+        {% if block.settings.option_1_image %}
+          <img class="option-image" data-option="option-{{ block.id }}-1" src="{{ block.settings.option_1_image | img_url: 'master' }}" alt="{{ block.settings.option_1_title }}">
+        {% endif %}
+        {% if block.settings.option_2_image %}
+          <img class="option-image" data-option="option-{{ block.id }}-2" src="{{ block.settings.option_2_image | img_url: 'master' }}" alt="{{ block.settings.option_2_title }}">
+        {% endif %}
+        {% if block.settings.option_3_image %}
+          <img class="option-image" data-option="option-{{ block.id }}-3" src="{{ block.settings.option_3_image | img_url: 'master' }}" alt="{{ block.settings.option_3_title }}">
+        {% endif %}
+        {% if block.settings.option_4_image %}
+          <img class="option-image" data-option="option-{{ block.id }}-4" src="{{ block.settings.option_4_image | img_url: 'master' }}" alt="{{ block.settings.option_4_title }}">
+        {% endif %}
+        {% if block.settings.option_5_image %}
+          <img class="option-image" data-option="option-{{ block.id }}-5" src="{{ block.settings.option_5_image | img_url: 'master' }}" alt="{{ block.settings.option_5_title }}">
+        {% endif %}
+      </div>
+    {% endfor %}
+  {% endif %}
+
+  <div class="custom-product-steps__content">
+    {% if section.blocks.size > 0 %}
+      {% for block in section.blocks %}
+        <div class="custom-product-steps__step-content" data-step="{{ block.settings.step_number }}" data-accumulate-price="{% if section.settings.accumulate_price %}true{% else %}false{% endif %}" {{ block.shopify_attributes }}>
+
+          {% comment %} Step Header {% endcomment %}
+          {% if block.settings.package_title or section.settings.show_steps %}
+            <div class="custom-product-steps__header">
+              <div class="custom-product-steps__header-top">
+                {% if block.settings.package_title != blank %}
+                  <h3 class="custom-product-steps__package-title">{{ block.settings.package_title }}</h3>
+                {% endif %}
+                {% if section.settings.show_steps %}
+                  <span class="custom-product-steps__step-indicator">STEP {{ block.settings.step_number }} OF {{ section.settings.total_steps }}</span>
+                {% endif %}
+              </div>
+              {% if section.settings.show_steps %}
+                <div class="custom-product-steps__progress-bar">
+                  {% for i in (1..section.settings.total_steps) %}
+                    <div class="custom-product-steps__progress-step {% if i <= block.settings.step_number %}active{% endif %}" data-step-indicator="{{ i }}"></div>
+                  {% endfor %}
+                </div>
+              {% endif %}
+            </div>
+          {% endif %}
+
+          {% comment %} Step Product Info {% endcomment %}
+          <div class="custom-product-steps__product-info">
+            {% if block.settings.step_title != blank %}
+              <h2 class="custom-product-steps__product-title">
+                <span>{{ block.settings.step_title }}</span>
+                {% if block.settings.step_price != blank %}
+                  <span class="custom-product-steps__price" data-step="{{ block.settings.step_number }}" data-base-price="{{ block.settings.step_price }}">{{ block.settings.step_price }}</span>
+                {% endif %}
+              </h2>
+            {% endif %}
+
+            {% if block.settings.step_description != blank %}
+              <p class="custom-product-steps__description">{{ block.settings.step_description }}</p>
+            {% endif %}
+          </div>
+          <div class="custom-product-steps__options">
+            {% comment %} Option 1 {% endcomment %}
+            {% if block.settings.option_1_title != blank %}
+              <div class="custom-product-steps__option">
+                <div class="custom-product-steps__option-header">
+                  <div class="custom-product-steps__option-radio">
+                    <input
+                      type="radio"
+                      name="product-option-step-{{ block.settings.step_number }}"
+                      id="option-{{ block.id }}-1"
+                      value="{{ block.settings.option_1_title }}"
+                      data-step="{{ block.settings.step_number }}"
+                      data-price-modifier="{{ block.settings.option_1_price_modifier }}"
+                      {% if block.settings.option_1_product %}
+                        data-product-id="{{ block.settings.option_1_product.id }}"
+                        data-variant-id="{{ block.settings.option_1_product.selected_or_first_available_variant.id }}"
+                      {% endif %}
+                      {% if block.settings.option_1_default %}checked{% endif %}
+                    >
+                    <label for="option-{{ block.id }}-1" class="custom-product-steps__option-label">
+                      {{ block.settings.option_1_title }}
+                    </label>
+                  </div>
+                  {% if block.settings.option_1_price != blank %}
+                    <span class="custom-product-steps__option-price">{{ block.settings.option_1_price }}</span>
+                  {% endif %}
+                  {% if block.settings.option_1_enable_expandable %}
+                    <button type="button" class="custom-product-steps__option-toggle {% if block.settings.option_1_default_expanded %}expanded{% endif %}" onclick="toggleExpandable(this, event)">
+                      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                      </svg>
+                    </button>
+                  {% endif %}
+                </div>
+
+                {% if block.settings.option_1_feature_1 != blank or block.settings.option_1_feature_2 != blank %}
+                  <div class="custom-product-steps__option-features">
+                    {% if block.settings.option_1_feature_1 != blank %}
+                      <div class="custom-product-steps__feature">
+                        {% unless block.settings.option_1_hide_check_icon %}
+                          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                          </svg>
+                        {% endunless %}
+                        <span>{{ block.settings.option_1_feature_1 }}</span>
+                      </div>
+                    {% endif %}
+                    {% if block.settings.option_1_feature_2 != blank %}
+                      <div class="custom-product-steps__feature">
+                        {% unless block.settings.option_1_hide_check_icon %}
+                          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                          </svg>
+                        {% endunless %}
+                        <span>{{ block.settings.option_1_feature_2 }}</span>
+                      </div>
+                    {% endif %}
+                  </div>
+                {% endif %}
+
+                {% if block.settings.option_1_enable_expandable %}
+                  <div class="custom-product-steps__expandable-content {% if block.settings.option_1_default_expanded %}expanded{% endif %}">
+                    {% if block.settings.option_1_expandable_description != blank %}
+                      <div class="custom-product-steps__expandable-description">
+                        {{ block.settings.option_1_expandable_description }}
+                      </div>
+                    {% endif %}
+
+                    {% if block.settings.option_1_nested_checkbox_1_title != blank or block.settings.option_1_nested_checkbox_2_title != blank or block.settings.option_1_nested_checkbox_3_title != blank %}
+                      <div class="custom-product-steps__nested-checkboxes">
+                        {% if block.settings.option_1_nested_checkbox_1_title != blank %}
+                          <div class="custom-product-steps__nested-checkbox">
+                            <input
+                              type="checkbox"
+                              id="nested-{{ block.id }}-1-1"
+                              value="{{ block.settings.option_1_nested_checkbox_1_title }}"
+                              data-step="{{ block.settings.step_number }}"
+                              data-parent-option="option-{{ block.id }}-1"
+                              data-price-modifier="{{ block.settings.option_1_nested_checkbox_1_price_modifier }}"
+                              {% if block.settings.option_1_nested_checkbox_1_product %}
+                                data-product-id="{{ block.settings.option_1_nested_checkbox_1_product.id }}"
+                                data-variant-id="{{ block.settings.option_1_nested_checkbox_1_product.selected_or_first_available_variant.id }}"
+                              {% endif %}
+                              class="custom-product-steps__nested-checkbox-input"
+                              onchange="updateNestedCheckboxState(this)"
+                            >
+                            {% if block.settings.option_1_nested_checkbox_1_image %}
+                              <img src="{{ block.settings.option_1_nested_checkbox_1_image | img_url: 'medium' }}" alt="{{ block.settings.option_1_nested_checkbox_1_title }}" class="custom-product-steps__nested-checkbox-image">
+                            {% endif %}
+                            <div class="custom-product-steps__nested-checkbox-content">
+                              <div class="custom-product-steps__nested-checkbox-header">
+                                <label for="nested-{{ block.id }}-1-1" class="custom-product-steps__nested-checkbox-label">
+                                  {{ block.settings.option_1_nested_checkbox_1_title }}
+                                </label>
+                                {% if block.settings.option_1_nested_checkbox_1_price != blank %}
+                                  <span class="custom-product-steps__nested-checkbox-price">{{ block.settings.option_1_nested_checkbox_1_price }}</span>
+                                {% endif %}
+                              </div>
+                              {% if block.settings.option_1_nested_checkbox_1_detail_1 != blank or block.settings.option_1_nested_checkbox_1_detail_2 != blank or block.settings.option_1_nested_checkbox_1_detail_3 != blank or block.settings.option_1_nested_checkbox_1_detail_4 != blank %}
+                                <div class="custom-product-steps__nested-checkbox-details">
+                                  {% if block.settings.option_1_nested_checkbox_1_detail_1 != blank %}
+                                    <div class="custom-product-steps__nested-checkbox-detail">{{ block.settings.option_1_nested_checkbox_1_detail_1 }}</div>
+                                  {% endif %}
+                                  {% if block.settings.option_1_nested_checkbox_1_detail_2 != blank %}
+                                    <div class="custom-product-steps__nested-checkbox-detail">{{ block.settings.option_1_nested_checkbox_1_detail_2 }}</div>
+                                  {% endif %}
+                                  {% if block.settings.option_1_nested_checkbox_1_detail_3 != blank %}
+                                    <div class="custom-product-steps__nested-checkbox-detail">{{ block.settings.option_1_nested_checkbox_1_detail_3 }}</div>
+                                  {% endif %}
+                                  {% if block.settings.option_1_nested_checkbox_1_detail_4 != blank %}
+                                    <div class="custom-product-steps__nested-checkbox-detail">{{ block.settings.option_1_nested_checkbox_1_detail_4 }}</div>
+                                  {% endif %}
+                                </div>
+                              {% endif %}
+                              <div class="custom-product-steps__quantity-selector">
+                                <button type="button" class="custom-product-steps__quantity-btn" onclick="changeQuantity(this, -1, event)">−</button>
+                                <input type="number" value="1" min="1" max="99" class="custom-product-steps__quantity-input" data-nested-id="nested-{{ block.id }}-1-1" readonly>
+                                <button type="button" class="custom-product-steps__quantity-btn" onclick="changeQuantity(this, 1, event)">+</button>
+                              </div>
+                            </div>
+                          </div>
+                        {% endif %}
+
+                        {% if block.settings.option_1_nested_checkbox_2_title != blank %}
+                          <div class="custom-product-steps__nested-checkbox">
+                            <input
+                              type="checkbox"
+                              id="nested-{{ block.id }}-1-2"
+                              value="{{ block.settings.option_1_nested_checkbox_2_title }}"
+                              data-step="{{ block.settings.step_number }}"
+                              data-parent-option="option-{{ block.id }}-1"
+                              data-price-modifier="{{ block.settings.option_1_nested_checkbox_2_price_modifier }}"
+                              {% if block.settings.option_1_nested_checkbox_2_product %}
+                                data-product-id="{{ block.settings.option_1_nested_checkbox_2_product.id }}"
+                                data-variant-id="{{ block.settings.option_1_nested_checkbox_2_product.selected_or_first_available_variant.id }}"
+                              {% endif %}
+                              class="custom-product-steps__nested-checkbox-input"
+                              onchange="updateNestedCheckboxState(this)"
+                            >
+                            {% if block.settings.option_1_nested_checkbox_2_image %}
+                              <img src="{{ block.settings.option_1_nested_checkbox_2_image | img_url: 'medium' }}" alt="{{ block.settings.option_1_nested_checkbox_2_title }}" class="custom-product-steps__nested-checkbox-image">
+                            {% endif %}
+                            <div class="custom-product-steps__nested-checkbox-content">
+                              <div class="custom-product-steps__nested-checkbox-header">
+                                <label for="nested-{{ block.id }}-1-2" class="custom-product-steps__nested-checkbox-label">
+                                  {{ block.settings.option_1_nested_checkbox_2_title }}
+                                </label>
+                                {% if block.settings.option_1_nested_checkbox_2_price != blank %}
+                                  <span class="custom-product-steps__nested-checkbox-price">{{ block.settings.option_1_nested_checkbox_2_price }}</span>
+                                {% endif %}
+                              </div>
+                              {% if block.settings.option_1_nested_checkbox_2_detail_1 != blank or block.settings.option_1_nested_checkbox_2_detail_2 != blank or block.settings.option_1_nested_checkbox_2_detail_3 != blank or block.settings.option_1_nested_checkbox_2_detail_4 != blank %}
+                                <div class="custom-product-steps__nested-checkbox-details">
+                                  {% if block.settings.option_1_nested_checkbox_2_detail_1 != blank %}
+                                    <div class="custom-product-steps__nested-checkbox-detail">{{ block.settings.option_1_nested_checkbox_2_detail_1 }}</div>
+                                  {% endif %}
+                                  {% if block.settings.option_1_nested_checkbox_2_detail_2 != blank %}
+                                    <div class="custom-product-steps__nested-checkbox-detail">{{ block.settings.option_1_nested_checkbox_2_detail_2 }}</div>
+                                  {% endif %}
+                                  {% if block.settings.option_1_nested_checkbox_2_detail_3 != blank %}
+                                    <div class="custom-product-steps__nested-checkbox-detail">{{ block.settings.option_1_nested_checkbox_2_detail_3 }}</div>
+                                  {% endif %}
+                                  {% if block.settings.option_1_nested_checkbox_2_detail_4 != blank %}
+                                    <div class="custom-product-steps__nested-checkbox-detail">{{ block.settings.option_1_nested_checkbox_2_detail_4 }}</div>
+                                  {% endif %}
+                                </div>
+                              {% endif %}
+                              <div class="custom-product-steps__quantity-selector">
+                                <button type="button" class="custom-product-steps__quantity-btn" onclick="changeQuantity(this, -1, event)">−</button>
+                                <input type="number" value="1" min="1" max="99" class="custom-product-steps__quantity-input" data-nested-id="nested-{{ block.id }}-1-2" readonly>
+                                <button type="button" class="custom-product-steps__quantity-btn" onclick="changeQuantity(this, 1, event)">+</button>
+                              </div>
+                            </div>
+                          </div>
+                        {% endif %}
+
+                        {% if block.settings.option_1_nested_checkbox_3_title != blank %}
+                          <div class="custom-product-steps__nested-checkbox">
+                            <input
+                              type="checkbox"
+                              id="nested-{{ block.id }}-1-3"
+                              value="{{ block.settings.option_1_nested_checkbox_3_title }}"
+                              data-step="{{ block.settings.step_number }}"
+                              data-parent-option="option-{{ block.id }}-1"
+                              data-price-modifier="{{ block.settings.option_1_nested_checkbox_3_price_modifier }}"
+                              {% if block.settings.option_1_nested_checkbox_3_product %}
+                                data-product-id="{{ block.settings.option_1_nested_checkbox_3_product.id }}"
+                                data-variant-id="{{ block.settings.option_1_nested_checkbox_3_product.selected_or_first_available_variant.id }}"
+                              {% endif %}
+                              class="custom-product-steps__nested-checkbox-input"
+                              onchange="updateNestedCheckboxState(this)"
+                            >
+                            {% if block.settings.option_1_nested_checkbox_3_image %}
+                              <img src="{{ block.settings.option_1_nested_checkbox_3_image | img_url: 'medium' }}" alt="{{ block.settings.option_1_nested_checkbox_3_title }}" class="custom-product-steps__nested-checkbox-image">
+                            {% endif %}
+                            <div class="custom-product-steps__nested-checkbox-content">
+                              <div class="custom-product-steps__nested-checkbox-header">
+                                <label for="nested-{{ block.id }}-1-3" class="custom-product-steps__nested-checkbox-label">
+                                  {{ block.settings.option_1_nested_checkbox_3_title }}
+                                </label>
+                                {% if block.settings.option_1_nested_checkbox_3_price != blank %}
+                                  <span class="custom-product-steps__nested-checkbox-price">{{ block.settings.option_1_nested_checkbox_3_price }}</span>
+                                {% endif %}
+                              </div>
+                              {% if block.settings.option_1_nested_checkbox_3_detail_1 != blank or block.settings.option_1_nested_checkbox_3_detail_2 != blank or block.settings.option_1_nested_checkbox_3_detail_3 != blank or block.settings.option_1_nested_checkbox_3_detail_4 != blank %}
+                                <div class="custom-product-steps__nested-checkbox-details">
+                                  {% if block.settings.option_1_nested_checkbox_3_detail_1 != blank %}
+                                    <div class="custom-product-steps__nested-checkbox-detail">{{ block.settings.option_1_nested_checkbox_3_detail_1 }}</div>
+                                  {% endif %}
+                                  {% if block.settings.option_1_nested_checkbox_3_detail_2 != blank %}
+                                    <div class="custom-product-steps__nested-checkbox-detail">{{ block.settings.option_1_nested_checkbox_3_detail_2 }}</div>
+                                  {% endif %}
+                                  {% if block.settings.option_1_nested_checkbox_3_detail_3 != blank %}
+                                    <div class="custom-product-steps__nested-checkbox-detail">{{ block.settings.option_1_nested_checkbox_3_detail_3 }}</div>
+                                  {% endif %}
+                                  {% if block.settings.option_1_nested_checkbox_3_detail_4 != blank %}
+                                    <div class="custom-product-steps__nested-checkbox-detail">{{ block.settings.option_1_nested_checkbox_3_detail_4 }}</div>
+                                  {% endif %}
+                                </div>
+                              {% endif %}
+                              <div class="custom-product-steps__quantity-selector">
+                                <button type="button" class="custom-product-steps__quantity-btn" onclick="changeQuantity(this, -1, event)">−</button>
+                                <input type="number" value="1" min="1" max="99" class="custom-product-steps__quantity-input" data-nested-id="nested-{{ block.id }}-1-3" readonly>
+                                <button type="button" class="custom-product-steps__quantity-btn" onclick="changeQuantity(this, 1, event)">+</button>
+                              </div>
+                            </div>
+                          </div>
+                        {% endif %}
+                      </div>
+                    {% endif %}
+                  </div>
+                {% endif %}
+              </div>
+            {% endif %}
+
+            {% comment %} Option 2 {% endcomment %}
+            {% if block.settings.option_2_title != blank %}
+              <div class="custom-product-steps__option">
+                <div class="custom-product-steps__option-header">
+                  <div class="custom-product-steps__option-radio">
+                    <input
+                      type="radio"
+                      name="product-option-step-{{ block.settings.step_number }}"
+                      id="option-{{ block.id }}-2"
+                      value="{{ block.settings.option_2_title }}"
+                      data-step="{{ block.settings.step_number }}"
+                      data-price-modifier="{{ block.settings.option_2_price_modifier }}"
+                      {% if block.settings.option_2_product %}
+                        data-product-id="{{ block.settings.option_2_product.id }}"
+                        data-variant-id="{{ block.settings.option_2_product.selected_or_first_available_variant.id }}"
+                      {% endif %}
+                      {% if block.settings.option_2_default %}checked{% endif %}
+                    >
+                    <label for="option-{{ block.id }}-2" class="custom-product-steps__option-label">
+                      {{ block.settings.option_2_title }}
+                    </label>
+                  </div>
+                  {% if block.settings.option_2_price != blank %}
+                    <span class="custom-product-steps__option-price">{{ block.settings.option_2_price }}</span>
+                  {% endif %}
+                  {% if block.settings.option_2_enable_expandable %}
+                    <button type="button" class="custom-product-steps__option-toggle {% if block.settings.option_2_default_expanded %}expanded{% endif %}" onclick="toggleExpandable(this, event)">
+                      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                      </svg>
+                    </button>
+                  {% endif %}
+                </div>
+
+                {% if block.settings.option_2_feature_1 != blank or block.settings.option_2_feature_2 != blank %}
+                  <div class="custom-product-steps__option-features">
+                    {% if block.settings.option_2_feature_1 != blank %}
+                      <div class="custom-product-steps__feature">
+                        {% unless block.settings.option_2_hide_check_icon %}
+                          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                          </svg>
+                        {% endunless %}
+                        <span>{{ block.settings.option_2_feature_1 }}</span>
+                      </div>
+                    {% endif %}
+                    {% if block.settings.option_2_feature_2 != blank %}
+                      <div class="custom-product-steps__feature">
+                        {% unless block.settings.option_2_hide_check_icon %}
+                          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                          </svg>
+                        {% endunless %}
+                        <span>{{ block.settings.option_2_feature_2 }}</span>
+                      </div>
+                    {% endif %}
+                  </div>
+                {% endif %}
+
+                {% if block.settings.option_2_enable_expandable %}
+                  <div class="custom-product-steps__expandable-content {% if block.settings.option_2_default_expanded %}expanded{% endif %}">
+                    {% if block.settings.option_2_expandable_description != blank %}
+                      <div class="custom-product-steps__expandable-description">
+                        {{ block.settings.option_2_expandable_description }}
+                      </div>
+                    {% endif %}
+
+                    {% if block.settings.option_2_nested_checkbox_1_title != blank or block.settings.option_2_nested_checkbox_2_title != blank or block.settings.option_2_nested_checkbox_3_title != blank %}
+                      <div class="custom-product-steps__nested-checkboxes">
+                        {% for i in (1..3) %}
+                          {% assign checkbox_title = 'option_2_nested_checkbox_' | append: i | append: '_title' %}
+                          {% assign checkbox_image = 'option_2_nested_checkbox_' | append: i | append: '_image' %}
+                          {% assign checkbox_price = 'option_2_nested_checkbox_' | append: i | append: '_price' %}
+                          {% assign checkbox_price_modifier = 'option_2_nested_checkbox_' | append: i | append: '_price_modifier' %}
+                          {% assign checkbox_product = 'option_2_nested_checkbox_' | append: i | append: '_product' %}
+                          {% assign checkbox_detail_1 = 'option_2_nested_checkbox_' | append: i | append: '_detail_1' %}
+                          {% assign checkbox_detail_2 = 'option_2_nested_checkbox_' | append: i | append: '_detail_2' %}
+                          {% assign checkbox_detail_3 = 'option_2_nested_checkbox_' | append: i | append: '_detail_3' %}
+                          {% assign checkbox_detail_4 = 'option_2_nested_checkbox_' | append: i | append: '_detail_4' %}
+
+                          {% if block.settings[checkbox_title] != blank %}
+                            <div class="custom-product-steps__nested-checkbox">
+                              <input
+                                type="checkbox"
+                                id="nested-{{ block.id }}-2-{{ i }}"
+                                value="{{ block.settings[checkbox_title] }}"
+                                data-step="{{ block.settings.step_number }}"
+                                data-parent-option="option-{{ block.id }}-2"
+                                data-price-modifier="{{ block.settings[checkbox_price_modifier] }}"
+                                {% if block.settings[checkbox_product] %}
+                                  data-product-id="{{ block.settings[checkbox_product].id }}"
+                                  data-variant-id="{{ block.settings[checkbox_product].selected_or_first_available_variant.id }}"
+                                {% endif %}
+                                class="custom-product-steps__nested-checkbox-input"
+                                onchange="updateNestedCheckboxState(this)"
+                              >
+                              {% if block.settings[checkbox_image] %}
+                                <img src="{{ block.settings[checkbox_image] | img_url: 'medium' }}" alt="{{ block.settings[checkbox_title] }}" class="custom-product-steps__nested-checkbox-image">
+                              {% endif %}
+                              <div class="custom-product-steps__nested-checkbox-content">
+                                <div class="custom-product-steps__nested-checkbox-header">
+                                  <label for="nested-{{ block.id }}-2-{{ i }}" class="custom-product-steps__nested-checkbox-label">
+                                    {{ block.settings[checkbox_title] }}
+                                  </label>
+                                  {% if block.settings[checkbox_price] != blank %}
+                                    <span class="custom-product-steps__nested-checkbox-price">{{ block.settings[checkbox_price] }}</span>
+                                  {% endif %}
+                                </div>
+                                {% if block.settings[checkbox_detail_1] != blank or block.settings[checkbox_detail_2] != blank or block.settings[checkbox_detail_3] != blank or block.settings[checkbox_detail_4] != blank %}
+                                  <div class="custom-product-steps__nested-checkbox-details">
+                                    {% if block.settings[checkbox_detail_1] != blank %}
+                                      <div class="custom-product-steps__nested-checkbox-detail">{{ block.settings[checkbox_detail_1] }}</div>
+                                    {% endif %}
+                                    {% if block.settings[checkbox_detail_2] != blank %}
+                                      <div class="custom-product-steps__nested-checkbox-detail">{{ block.settings[checkbox_detail_2] }}</div>
+                                    {% endif %}
+                                    {% if block.settings[checkbox_detail_3] != blank %}
+                                      <div class="custom-product-steps__nested-checkbox-detail">{{ block.settings[checkbox_detail_3] }}</div>
+                                    {% endif %}
+                                    {% if block.settings[checkbox_detail_4] != blank %}
+                                      <div class="custom-product-steps__nested-checkbox-detail">{{ block.settings[checkbox_detail_4] }}</div>
+                                    {% endif %}
+                                  </div>
+                                {% endif %}
+                                <div class="custom-product-steps__quantity-selector">
+                                  <button type="button" class="custom-product-steps__quantity-btn" onclick="changeQuantity(this, -1, event)">−</button>
+                                  <input type="number" value="1" min="1" max="99" class="custom-product-steps__quantity-input" data-nested-id="nested-{{ block.id }}-2-{{ i }}" readonly>
+                                  <button type="button" class="custom-product-steps__quantity-btn" onclick="changeQuantity(this, 1, event)">+</button>
+                                </div>
+                              </div>
+                            </div>
+                          {% endif %}
+                        {% endfor %}
+                      </div>
+                    {% endif %}
+                  </div>
+                {% endif %}
+              </div>
+            {% endif %}
+
+            {% comment %} Option 3 {% endcomment %}
+            {% if block.settings.option_3_title != blank %}
+              <div class="custom-product-steps__option">
+                <div class="custom-product-steps__option-header">
+                  <div class="custom-product-steps__option-radio">
+                    <input
+                      type="radio"
+                      name="product-option-step-{{ block.settings.step_number }}"
+                      id="option-{{ block.id }}-3"
+                      value="{{ block.settings.option_3_title }}"
+                      data-step="{{ block.settings.step_number }}"
+                      data-price-modifier="{{ block.settings.option_3_price_modifier }}"
+                      {% if block.settings.option_3_product %}
+                        data-product-id="{{ block.settings.option_3_product.id }}"
+                        data-variant-id="{{ block.settings.option_3_product.selected_or_first_available_variant.id }}"
+                      {% endif %}
+                      {% if block.settings.option_3_default %}checked{% endif %}
+                    >
+                    <label for="option-{{ block.id }}-3" class="custom-product-steps__option-label">
+                      {{ block.settings.option_3_title }}
+                    </label>
+                  </div>
+                  {% if block.settings.option_3_price != blank %}
+                    <span class="custom-product-steps__option-price">{{ block.settings.option_3_price }}</span>
+                  {% endif %}
+                  {% if block.settings.option_3_enable_expandable %}
+                    <button type="button" class="custom-product-steps__option-toggle {% if block.settings.option_3_default_expanded %}expanded{% endif %}" onclick="toggleExpandable(this, event)">
+                      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                      </svg>
+                    </button>
+                  {% endif %}
+                </div>
+
+                {% if block.settings.option_3_feature_1 != blank or block.settings.option_3_feature_2 != blank %}
+                  <div class="custom-product-steps__option-features">
+                    {% if block.settings.option_3_feature_1 != blank %}
+                      <div class="custom-product-steps__feature">
+                        {% unless block.settings.option_3_hide_check_icon %}
+                          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                          </svg>
+                        {% endunless %}
+                        <span>{{ block.settings.option_3_feature_1 }}</span>
+                      </div>
+                    {% endif %}
+                    {% if block.settings.option_3_feature_2 != blank %}
+                      <div class="custom-product-steps__feature">
+                        {% unless block.settings.option_3_hide_check_icon %}
+                          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                          </svg>
+                        {% endunless %}
+                        <span>{{ block.settings.option_3_feature_2 }}</span>
+                      </div>
+                    {% endif %}
+                  </div>
+                {% endif %}
+
+                {% if block.settings.option_3_enable_expandable %}
+                  <div class="custom-product-steps__expandable-content {% if block.settings.option_3_default_expanded %}expanded{% endif %}">
+                    {% if block.settings.option_3_expandable_description != blank %}
+                      <div class="custom-product-steps__expandable-description">
+                        {{ block.settings.option_3_expandable_description }}
+                      </div>
+                    {% endif %}
+
+                    {% if block.settings.option_3_nested_checkbox_1_title != blank or block.settings.option_3_nested_checkbox_2_title != blank or block.settings.option_3_nested_checkbox_3_title != blank %}
+                      <div class="custom-product-steps__nested-checkboxes">
+                        {% for i in (1..3) %}
+                          {% assign checkbox_title = 'option_3_nested_checkbox_' | append: i | append: '_title' %}
+                          {% assign checkbox_image = 'option_3_nested_checkbox_' | append: i | append: '_image' %}
+                          {% assign checkbox_price = 'option_3_nested_checkbox_' | append: i | append: '_price' %}
+                          {% assign checkbox_price_modifier = 'option_3_nested_checkbox_' | append: i | append: '_price_modifier' %}
+                          {% assign checkbox_product = 'option_3_nested_checkbox_' | append: i | append: '_product' %}
+                          {% assign checkbox_detail_1 = 'option_3_nested_checkbox_' | append: i | append: '_detail_1' %}
+                          {% assign checkbox_detail_2 = 'option_3_nested_checkbox_' | append: i | append: '_detail_2' %}
+                          {% assign checkbox_detail_3 = 'option_3_nested_checkbox_' | append: i | append: '_detail_3' %}
+                          {% assign checkbox_detail_4 = 'option_3_nested_checkbox_' | append: i | append: '_detail_4' %}
+
+                          {% if block.settings[checkbox_title] != blank %}
+                            <div class="custom-product-steps__nested-checkbox">
+                              <input
+                                type="checkbox"
+                                id="nested-{{ block.id }}-3-{{ i }}"
+                                value="{{ block.settings[checkbox_title] }}"
+                                data-step="{{ block.settings.step_number }}"
+                                data-parent-option="option-{{ block.id }}-3"
+                                data-price-modifier="{{ block.settings[checkbox_price_modifier] }}"
+                                {% if block.settings[checkbox_product] %}
+                                  data-product-id="{{ block.settings[checkbox_product].id }}"
+                                  data-variant-id="{{ block.settings[checkbox_product].selected_or_first_available_variant.id }}"
+                                {% endif %}
+                                class="custom-product-steps__nested-checkbox-input"
+                                onchange="updateNestedCheckboxState(this)"
+                              >
+                              {% if block.settings[checkbox_image] %}
+                                <img src="{{ block.settings[checkbox_image] | img_url: 'medium' }}" alt="{{ block.settings[checkbox_title] }}" class="custom-product-steps__nested-checkbox-image">
+                              {% endif %}
+                              <div class="custom-product-steps__nested-checkbox-content">
+                                <div class="custom-product-steps__nested-checkbox-header">
+                                  <label for="nested-{{ block.id }}-3-{{ i }}" class="custom-product-steps__nested-checkbox-label">
+                                    {{ block.settings[checkbox_title] }}
+                                  </label>
+                                  {% if block.settings[checkbox_price] != blank %}
+                                    <span class="custom-product-steps__nested-checkbox-price">{{ block.settings[checkbox_price] }}</span>
+                                  {% endif %}
+                                </div>
+                                {% if block.settings[checkbox_detail_1] != blank or block.settings[checkbox_detail_2] != blank or block.settings[checkbox_detail_3] != blank or block.settings[checkbox_detail_4] != blank %}
+                                  <div class="custom-product-steps__nested-checkbox-details">
+                                    {% if block.settings[checkbox_detail_1] != blank %}
+                                      <div class="custom-product-steps__nested-checkbox-detail">{{ block.settings[checkbox_detail_1] }}</div>
+                                    {% endif %}
+                                    {% if block.settings[checkbox_detail_2] != blank %}
+                                      <div class="custom-product-steps__nested-checkbox-detail">{{ block.settings[checkbox_detail_2] }}</div>
+                                    {% endif %}
+                                    {% if block.settings[checkbox_detail_3] != blank %}
+                                      <div class="custom-product-steps__nested-checkbox-detail">{{ block.settings[checkbox_detail_3] }}</div>
+                                    {% endif %}
+                                    {% if block.settings[checkbox_detail_4] != blank %}
+                                      <div class="custom-product-steps__nested-checkbox-detail">{{ block.settings[checkbox_detail_4] }}</div>
+                                    {% endif %}
+                                  </div>
+                                {% endif %}
+                                <div class="custom-product-steps__quantity-selector">
+                                  <button type="button" class="custom-product-steps__quantity-btn" onclick="changeQuantity(this, -1, event)">−</button>
+                                  <input type="number" value="1" min="1" max="99" class="custom-product-steps__quantity-input" data-nested-id="nested-{{ block.id }}-3-{{ i }}" readonly>
+                                  <button type="button" class="custom-product-steps__quantity-btn" onclick="changeQuantity(this, 1, event)">+</button>
+                                </div>
+                              </div>
+                            </div>
+                          {% endif %}
+                        {% endfor %}
+                      </div>
+                    {% endif %}
+                  </div>
+                {% endif %}
+              </div>
+            {% endif %}
+
+            {% comment %} Option 4 {% endcomment %}
+            {% if block.settings.option_4_title != blank %}
+              <div class="custom-product-steps__option">
+                <div class="custom-product-steps__option-header">
+                  <div class="custom-product-steps__option-radio">
+                    <input
+                      type="radio"
+                      name="product-option-step-{{ block.settings.step_number }}"
+                      id="option-{{ block.id }}-4"
+                      value="{{ block.settings.option_4_title }}"
+                      data-step="{{ block.settings.step_number }}"
+                      data-price-modifier="{{ block.settings.option_4_price_modifier }}"
+                      {% if block.settings.option_4_product %}
+                        data-product-id="{{ block.settings.option_4_product.id }}"
+                        data-variant-id="{{ block.settings.option_4_product.selected_or_first_available_variant.id }}"
+                      {% endif %}
+                      {% if block.settings.option_4_default %}checked{% endif %}
+                    >
+                    <label for="option-{{ block.id }}-4" class="custom-product-steps__option-label">
+                      {{ block.settings.option_4_title }}
+                    </label>
+                  </div>
+                  {% if block.settings.option_4_price != blank %}
+                    <span class="custom-product-steps__option-price">{{ block.settings.option_4_price }}</span>
+                  {% endif %}
+                </div>
+
+                {% if block.settings.option_4_feature_1 != blank or block.settings.option_4_feature_2 != blank %}
+                  <div class="custom-product-steps__option-features">
+                    {% if block.settings.option_4_feature_1 != blank %}
+                      <div class="custom-product-steps__feature">
+                        {% unless block.settings.option_4_hide_check_icon %}
+                          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                          </svg>
+                        {% endunless %}
+                        <span>{{ block.settings.option_4_feature_1 }}</span>
+                      </div>
+                    {% endif %}
+                    {% if block.settings.option_4_feature_2 != blank %}
+                      <div class="custom-product-steps__feature">
+                        {% unless block.settings.option_4_hide_check_icon %}
+                          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                          </svg>
+                        {% endunless %}
+                        <span>{{ block.settings.option_4_feature_2 }}</span>
+                      </div>
+                    {% endif %}
+                  </div>
+                {% endif %}
+              </div>
+            {% endif %}
+
+            {% comment %} Option 5 {% endcomment %}
+            {% if block.settings.option_5_title != blank %}
+              <div class="custom-product-steps__option">
+                <div class="custom-product-steps__option-header">
+                  <div class="custom-product-steps__option-radio">
+                    <input
+                      type="radio"
+                      name="product-option-step-{{ block.settings.step_number }}"
+                      id="option-{{ block.id }}-5"
+                      value="{{ block.settings.option_5_title }}"
+                      data-step="{{ block.settings.step_number }}"
+                      data-price-modifier="{{ block.settings.option_5_price_modifier }}"
+                      {% if block.settings.option_5_product %}
+                        data-product-id="{{ block.settings.option_5_product.id }}"
+                        data-variant-id="{{ block.settings.option_5_product.selected_or_first_available_variant.id }}"
+                      {% endif %}
+                      {% if block.settings.option_5_default %}checked{% endif %}
+                    >
+                    <label for="option-{{ block.id }}-5" class="custom-product-steps__option-label">
+                      {{ block.settings.option_5_title }}
+                    </label>
+                  </div>
+                  {% if block.settings.option_5_price != blank %}
+                    <span class="custom-product-steps__option-price">{{ block.settings.option_5_price }}</span>
+                  {% endif %}
+                </div>
+
+                {% if block.settings.option_5_feature_1 != blank or block.settings.option_5_feature_2 != blank %}
+                  <div class="custom-product-steps__option-features">
+                    {% if block.settings.option_5_feature_1 != blank %}
+                      <div class="custom-product-steps__feature">
+                        {% unless block.settings.option_5_hide_check_icon %}
+                          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                          </svg>
+                        {% endunless %}
+                        <span>{{ block.settings.option_5_feature_1 }}</span>
+                      </div>
+                    {% endif %}
+                    {% if block.settings.option_5_feature_2 != blank %}
+                      <div class="custom-product-steps__feature">
+                        {% unless block.settings.option_5_hide_check_icon %}
+                          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                          </svg>
+                        {% endunless %}
+                        <span>{{ block.settings.option_5_feature_2 }}</span>
+                      </div>
+                    {% endif %}
+                  </div>
+                {% endif %}
+              </div>
+            {% endif %}
+          </div>
+
+          {% comment %} Checkbox Options {% endcomment %}
+          {% if block.settings.checkbox_1_title != blank or block.settings.checkbox_2_title != blank %}
+            <div class="custom-product-steps__checkboxes">
+              {% if block.settings.checkbox_1_title != blank %}
+                <div class="custom-product-steps__checkbox-option">
+                  <div class="custom-product-steps__checkbox-header">
+                    <input
+                      type="checkbox"
+                      id="checkbox-{{ block.id }}-1"
+                      value="{{ block.settings.checkbox_1_title }}"
+                      data-step="{{ block.settings.step_number }}"
+                      data-price-modifier="{{ block.settings.checkbox_1_price_modifier }}"
+                      {% if block.settings.checkbox_1_product %}
+                        data-product-id="{{ block.settings.checkbox_1_product.id }}"
+                        data-variant-id="{{ block.settings.checkbox_1_product.selected_or_first_available_variant.id }}"
+                      {% endif %}
+                      class="custom-product-steps__checkbox-input"
+                    >
+                    <label for="checkbox-{{ block.id }}-1" class="custom-product-steps__checkbox-label">
+                      {{ block.settings.checkbox_1_title }}
+                      {% if block.settings.checkbox_1_price != blank %}
+                        <span class="custom-product-steps__checkbox-price">{{ block.settings.checkbox_1_price }}</span>
+                      {% endif %}
+                    </label>
+                  </div>
+                  {% if block.settings.checkbox_1_description != blank %}
+                    <div class="custom-product-steps__checkbox-description">
+                      {{ block.settings.checkbox_1_description }}
+                    </div>
+                  {% endif %}
+                  {% if block.settings.checkbox_1_note != blank %}
+                    <div class="custom-product-steps__checkbox-note">
+                      {{ block.settings.checkbox_1_note }}
+                    </div>
+                  {% endif %}
+                </div>
+              {% endif %}
+
+              {% if block.settings.checkbox_2_title != blank %}
+                <div class="custom-product-steps__checkbox-option">
+                  <div class="custom-product-steps__checkbox-header">
+                    <input
+                      type="checkbox"
+                      id="checkbox-{{ block.id }}-2"
+                      value="{{ block.settings.checkbox_2_title }}"
+                      data-step="{{ block.settings.step_number }}"
+                      data-price-modifier="{{ block.settings.checkbox_2_price_modifier }}"
+                      {% if block.settings.checkbox_2_product %}
+                        data-product-id="{{ block.settings.checkbox_2_product.id }}"
+                        data-variant-id="{{ block.settings.checkbox_2_product.selected_or_first_available_variant.id }}"
+                      {% endif %}
+                      class="custom-product-steps__checkbox-input"
+                    >
+                    <label for="checkbox-{{ block.id }}-2" class="custom-product-steps__checkbox-label">
+                      {{ block.settings.checkbox_2_title }}
+                      {% if block.settings.checkbox_2_price != blank %}
+                        <span class="custom-product-steps__checkbox-price">{{ block.settings.checkbox_2_price }}</span>
+                      {% endif %}
+                    </label>
+                  </div>
+                  {% if block.settings.checkbox_2_description != blank %}
+                    <div class="custom-product-steps__checkbox-description">
+                      {{ block.settings.checkbox_2_description }}
+                    </div>
+                  {% endif %}
+                  {% if block.settings.checkbox_2_note != blank %}
+                    <div class="custom-product-steps__checkbox-note">
+                      {{ block.settings.checkbox_2_note }}
+                    </div>
+                  {% endif %}
+                </div>
+              {% endif %}
+            </div>
+          {% endif %}
+
+          {% comment %} Step Buttons {% endcomment %}
+          <div class="custom-product-steps__buttons">
+            {% if block.settings.step_number > 1 and block.settings.show_back_button %}
+              <button class="custom-product-steps__button custom-product-steps__button--back" onclick="navigateStep({{ block.settings.step_number }}, -1)">
+                {{ block.settings.back_button_text | default: 'Back' }}
+              </button>
+            {% endif %}
+            {% if block.settings.button_text != blank %}
+              <button
+                class="custom-product-steps__button"
+                onclick="navigateStep({{ block.settings.step_number }}, 1)"
+                {% if block.settings.step_product %}
+                  data-product-id="{{ block.settings.step_product.id }}"
+                  data-variant-id="{{ block.settings.step_product.selected_or_first_available_variant.id }}"
+                {% endif %}
+              >
+                {{ block.settings.button_text }}
+              </button>
+            {% endif %}
+            {% if block.settings.enable_custom_button and block.settings.custom_button_text != blank %}
+              <a
+                href="{{ block.settings.custom_button_link | default: '#' }}"
+                class="custom-product-steps__button custom-product-steps__button--custom"
+                style="text-align: center; text-decoration: none; display: flex; align-items: center; justify-content: center;"
+              >
+                {{ block.settings.custom_button_text }}
+              </a>
+            {% endif %}
+          </div>
+
+        </div>
+      {% endfor %}
+    {% endif %}
+  </div>
+</section>
+
+<script>
+  // Toggle expandable content
+  window.toggleExpandable = function(button, event) {
+    event.stopPropagation();
+    event.preventDefault();
+
+    const optionCard = button.closest('.custom-product-steps__option');
+    const expandableContent = optionCard.querySelector('.custom-product-steps__expandable-content');
+
+    button.classList.toggle('expanded');
+    expandableContent.classList.toggle('expanded');
+  };
+
+  // Change quantity for nested checkboxes
+  window.changeQuantity = function(button, change, event) {
+    event.stopPropagation();
+    event.preventDefault();
+
+    const quantityInput = button.parentElement.querySelector('.custom-product-steps__quantity-input');
+    let currentValue = parseInt(quantityInput.value) || 1;
+    let newValue = currentValue + change;
+
+    // Enforce min/max
+    const min = parseInt(quantityInput.getAttribute('min')) || 1;
+    const max = parseInt(quantityInput.getAttribute('max')) || 99;
+
+    if (newValue >= min && newValue <= max) {
+      quantityInput.value = newValue;
+    }
+  };
+
+  // Update nested checkbox state (selected/unselected visual)
+  window.updateNestedCheckboxState = function(checkbox) {
+    const nestedCard = checkbox.closest('.custom-product-steps__nested-checkbox');
+
+    if (checkbox.checked) {
+      nestedCard.classList.add('selected');
+    } else {
+      nestedCard.classList.remove('selected');
+    }
+
+    // Update price when nested checkbox changes
+    const stepNumber = parseInt(checkbox.getAttribute('data-step'));
+    if (stepNumber && window.updatePrice) {
+      window.updatePrice(stepNumber);
+    }
+  };
+
+  (function() {
+    let currentStepNumber = 1;
+    const stepData = {};
+
+    // Check if batch mode is enabled
+    const section = document.querySelector('.custom-product-steps');
+    const batchMode = section?.getAttribute('data-batch-mode') === 'true';
+
+    // Function to parse price string to number
+    function parsePrice(priceStr) {
+      if (!priceStr || priceStr === '' || priceStr.toLowerCase() === 'free') return 0;
+      // Remove currency symbols and parse
+      const cleaned = priceStr.replace(/[^0-9.\-+]/g, '');
+      return parseFloat(cleaned) || 0;
+    }
+
+    // Function to format price
+    function formatPrice(price) {
+      return '$' + Math.abs(price).toFixed(0);
+    }
+
+    // Function to calculate total price based on all previous selections
+    function calculateTotalPrice(currentStep) {
+      const allSteps = document.querySelectorAll('.custom-product-steps__step-content');
+      const stepNumbers = Array.from(allSteps).map(step => parseInt(step.getAttribute('data-step'))).sort((a, b) => a - b);
+
+      // Check if price accumulation is enabled (global setting)
+      const currentStepElement = document.querySelector(`.custom-product-steps__step-content[data-step="${currentStep}"]`);
+      const accumulatePriceAttr = currentStepElement?.getAttribute('data-accumulate-price');
+      const accumulatePrice = accumulatePriceAttr === 'true';
+
+      let totalPrice = 0;
+
+      if (accumulatePrice) {
+        // ACCUMULATE MODE: Add base prices and price modifiers from all steps up to and including current step
+        stepNumbers.forEach(stepNum => {
+          if (stepNum <= currentStep) {
+            const stepElement = document.querySelector(`.custom-product-steps__step-content[data-step="${stepNum}"]`);
+            const priceElement = stepElement?.querySelector('.custom-product-steps__price');
+            const stepBasePrice = priceElement ? parsePrice(priceElement.getAttribute('data-base-price')) : 0;
+
+            // Add base price from this step
+            totalPrice += stepBasePrice;
+
+            // Add price modifier from selected option
+            let selectedRadio;
+            if (stepNum === currentStep) {
+              selectedRadio = stepElement?.querySelector('input[type="radio"]:checked');
+            } else if (stepData[stepNum] && stepData[stepNum].id) {
+              selectedRadio = document.getElementById(stepData[stepNum].id);
+            } else {
+              selectedRadio = stepElement?.querySelector('input[type="radio"]:checked');
+            }
+
+            if (selectedRadio) {
+              const priceModifier = selectedRadio.getAttribute('data-price-modifier');
+              totalPrice += parsePrice(priceModifier);
+            }
+
+            // Add checkbox prices for this step
+            const stepCheckboxes = stepElement?.querySelectorAll('.custom-product-steps__checkbox-input:checked');
+            if (stepCheckboxes) {
+              stepCheckboxes.forEach(checkbox => {
+                const checkboxModifier = checkbox.getAttribute('data-price-modifier');
+                totalPrice += parsePrice(checkboxModifier);
+              });
+            }
+
+            // Add nested checkbox prices for this step
+            const nestedCheckboxes = stepElement?.querySelectorAll('.custom-product-steps__nested-checkbox-input:checked');
+            if (nestedCheckboxes) {
+              nestedCheckboxes.forEach(checkbox => {
+                const nestedModifier = checkbox.getAttribute('data-price-modifier');
+                const nestedId = checkbox.id;
+                const quantityInput = stepElement?.querySelector(`.custom-product-steps__quantity-input[data-nested-id="${nestedId}"]`);
+                const quantity = quantityInput ? parseInt(quantityInput.value) || 1 : 1;
+                totalPrice += parsePrice(nestedModifier) * quantity;
+              });
+            }
+          }
+        });
+      } else {
+        // SIMPLE MODE: Only add current step's base price and selected option modifier
+        const priceElement = currentStepElement?.querySelector('.custom-product-steps__price');
+        const basePrice = priceElement ? parsePrice(priceElement.getAttribute('data-base-price')) : 0;
+        totalPrice = basePrice;
+
+        const selectedRadio = currentStepElement?.querySelector('input[type="radio"]:checked');
+        if (selectedRadio) {
+          const priceModifier = selectedRadio.getAttribute('data-price-modifier');
+          totalPrice += parsePrice(priceModifier);
+        }
+
+        // Add checkbox prices for current step
+        const currentCheckboxes = currentStepElement?.querySelectorAll('.custom-product-steps__checkbox-input:checked');
+        if (currentCheckboxes) {
+          currentCheckboxes.forEach(checkbox => {
+            const checkboxModifier = checkbox.getAttribute('data-price-modifier');
+            totalPrice += parsePrice(checkboxModifier);
+          });
+        }
+
+        // Add nested checkbox prices for current step
+        const currentNestedCheckboxes = currentStepElement?.querySelectorAll('.custom-product-steps__nested-checkbox-input:checked');
+        if (currentNestedCheckboxes) {
+          currentNestedCheckboxes.forEach(checkbox => {
+            const nestedModifier = checkbox.getAttribute('data-price-modifier');
+            const nestedId = checkbox.id;
+            const quantityInput = currentStepElement?.querySelector(`.custom-product-steps__quantity-input[data-nested-id="${nestedId}"]`);
+            const quantity = quantityInput ? parseInt(quantityInput.value) || 1 : 1;
+            totalPrice += parsePrice(nestedModifier) * quantity;
+          });
+        }
+      }
+
+      return totalPrice;
+    }
+
+    // Function to update displayed price
+    function updatePrice(stepNumber) {
+      const totalPrice = calculateTotalPrice(stepNumber);
+      const priceElement = document.querySelector(`.custom-product-steps__price[data-step="${stepNumber}"]`);
+
+      if (priceElement) {
+        priceElement.textContent = formatPrice(totalPrice);
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const options = document.querySelectorAll('.custom-product-steps__option');
+      const radioInputs = document.querySelectorAll('.custom-product-steps__option input[type="radio"]');
+
+      // Check if there's a step in URL hash
+      const urlHash = window.location.hash;
+      if (urlHash && urlHash.startsWith('#step-')) {
+        const stepFromUrl = parseInt(urlHash.replace('#step-', ''));
+        if (!isNaN(stepFromUrl)) {
+          currentStepNumber = stepFromUrl;
+        }
+      }
+
+      // Initialize - show step from URL or first step
+      showStep(currentStepNumber);
+
+      // Function to update the displayed image based on selected radio
+      function updateImage(radio) {
+        if (!radio) return;
+
+        const stepNumber = radio.getAttribute('data-step');
+        const radioId = radio.id;
+        const imageContainer = document.querySelector(`#step-${stepNumber}-images`);
+
+        if (!imageContainer) return;
+
+        // Hide all option images in this step
+        const allOptionImages = imageContainer.querySelectorAll('.option-image');
+        allOptionImages.forEach(img => img.classList.remove('active'));
+
+        // Show the selected option's image
+        const selectedImage = imageContainer.querySelector(`.option-image[data-option="${radioId}"]`);
+        if (selectedImage) {
+          selectedImage.classList.add('active');
+          imageContainer.classList.add('has-active-option');
+        } else {
+          // No specific image for this option, show default
+          imageContainer.classList.remove('has-active-option');
+        }
+      }
+
+      // Add click handlers to option containers
+      options.forEach(option => {
+        option.addEventListener('click', function(e) {
+          // Don't trigger if clicking directly on the radio input
+          if (e.target.tagName !== 'INPUT') {
+            const radio = this.querySelector('input[type="radio"]');
+            radio.checked = true;
+            updateSelectedState();
+            updateImage(radio);
+
+            // Update price when selection changes via click
+            const stepNumber = parseInt(radio.getAttribute('data-step'));
+            if (stepNumber) {
+              updatePrice(stepNumber);
+            }
+          }
+        });
+      });
+
+      // Add change handlers to radio inputs
+      radioInputs.forEach(radio => {
+        radio.addEventListener('change', function() {
+          updateSelectedState();
+          updateImage(this);
+
+          // Update price when selection changes
+          const stepNumber = parseInt(this.getAttribute('data-step'));
+          if (stepNumber) {
+            updatePrice(stepNumber);
+          }
+        });
+      });
+
+      // Add change handlers to checkbox inputs
+      const checkboxInputs = document.querySelectorAll('.custom-product-steps__checkbox-input');
+      checkboxInputs.forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+          // Update price when checkbox changes
+          const stepNumber = parseInt(this.getAttribute('data-step'));
+          if (stepNumber) {
+            updatePrice(stepNumber);
+          }
+        });
+      });
+
+      // Add change handlers to nested checkbox inputs
+      const nestedCheckboxInputs = document.querySelectorAll('.custom-product-steps__nested-checkbox-input');
+      nestedCheckboxInputs.forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+          // Update price when nested checkbox changes
+          const stepNumber = parseInt(this.getAttribute('data-step'));
+          if (stepNumber) {
+            updatePrice(stepNumber);
+          }
+        });
+      });
+
+      function updateSelectedState() {
+        options.forEach(option => {
+          const radio = option.querySelector('input[type="radio"]');
+          if (radio.checked) {
+            option.classList.add('selected');
+          } else {
+            option.classList.remove('selected');
+          }
+        });
+      }
+
+      // Initialize selected state and images
+      updateSelectedState();
+
+      // Initialize images for all checked radios
+      radioInputs.forEach(radio => {
+        if (radio.checked) {
+          updateImage(radio);
+        }
+      });
+
+      // Make updateImage globally accessible
+      window.updateStepImage = updateImage;
+    });
+
+    function showStep(stepNumber) {
+      // Hide all steps and images
+      const allSteps = document.querySelectorAll('.custom-product-steps__step-content');
+      const allImages = document.querySelectorAll('.custom-product-steps__image[data-step-image]');
+
+      allSteps.forEach(step => step.classList.remove('active-step'));
+      allImages.forEach(img => img.classList.remove('active-step'));
+
+      // Show the requested step
+      const targetStep = document.querySelector(`.custom-product-steps__step-content[data-step="${stepNumber}"]`);
+      const targetImage = document.querySelector(`.custom-product-steps__image[data-step-image="${stepNumber}"]`);
+
+      if (targetStep) {
+        targetStep.classList.add('active-step');
+        currentStepNumber = stepNumber;
+
+        // Update URL hash
+        updateUrl(stepNumber);
+
+        // Restore previously selected option if exists
+        if (stepData[stepNumber] && stepData[stepNumber].id) {
+          const savedRadio = document.getElementById(stepData[stepNumber].id);
+          if (savedRadio) {
+            savedRadio.checked = true;
+
+            // Update visual state
+            const allOptions = targetStep.querySelectorAll('.custom-product-steps__option');
+            allOptions.forEach(option => {
+              const radio = option.querySelector('input[type="radio"]');
+              if (radio && radio.checked) {
+                option.classList.add('selected');
+              } else {
+                option.classList.remove('selected');
+              }
+            });
+
+            // Update image for restored selection
+            if (window.updateStepImage) {
+              window.updateStepImage(savedRadio);
+            }
+          }
+
+          // Restore checkbox states
+          if (stepData[stepNumber].checkboxes) {
+            // First uncheck all checkboxes for this step
+            const allCheckboxes = targetStep.querySelectorAll('.custom-product-steps__checkbox-input');
+            allCheckboxes.forEach(cb => cb.checked = false);
+
+            // Then check the saved ones
+            stepData[stepNumber].checkboxes.forEach(checkboxInfo => {
+              const checkbox = document.getElementById(checkboxInfo.id);
+              if (checkbox) {
+                checkbox.checked = true;
+              }
+            });
+          }
+
+          // Restore nested checkbox states
+          if (stepData[stepNumber].nestedCheckboxes) {
+            // First uncheck all nested checkboxes for this step
+            const allNestedCheckboxes = targetStep.querySelectorAll('.custom-product-steps__nested-checkbox-input');
+            allNestedCheckboxes.forEach(cb => cb.checked = false);
+
+            // Then check the saved ones and restore quantities
+            stepData[stepNumber].nestedCheckboxes.forEach(nestedInfo => {
+              const nestedCheckbox = document.getElementById(nestedInfo.id);
+              if (nestedCheckbox) {
+                nestedCheckbox.checked = true;
+
+                // Restore quantity
+                const quantityInput = targetStep.querySelector(`.custom-product-steps__quantity-input[data-nested-id="${nestedInfo.id}"]`);
+                if (quantityInput && nestedInfo.quantity) {
+                  quantityInput.value = nestedInfo.quantity;
+                }
+
+                // Update visual state
+                if (window.updateNestedCheckboxState) {
+                  window.updateNestedCheckboxState(nestedCheckbox);
+                }
+              }
+            });
+          }
+        } else {
+          // No saved data, use currently checked radio
+          const checkedRadio = targetStep.querySelector('input[type="radio"]:checked');
+          if (checkedRadio && window.updateStepImage) {
+            window.updateStepImage(checkedRadio);
+          }
+        }
+
+        // Update price for this step
+        updatePrice(stepNumber);
+      }
+
+      if (targetImage) {
+        targetImage.classList.add('active-step');
+      }
+
+      // Scroll to top of section
+      const section = document.querySelector('.custom-product-steps');
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+
+    function updateUrl(stepNumber) {
+      // Update URL without reloading page
+      const newUrl = window.location.pathname + window.location.search + '#step-' + stepNumber;
+      window.history.pushState({ step: stepNumber }, '', newUrl);
+    }
+
+    // Function to add product to cart
+    function addToCart(variantId, quantity = 1) {
+      return fetch('/cart/add.js', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          id: variantId,
+          quantity: quantity
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+        return data;
+      })
+      .catch(error => {
+        throw error;
+      });
+    }
+
+    window.navigateStep = function(currentStep, direction) {
+      // Save current step's selection with product data
+      const selectedOption = document.querySelector(`.custom-product-steps__step-content[data-step="${currentStep}"] input[type="radio"]:checked`);
+      const currentStepElement = document.querySelector(`.custom-product-steps__step-content[data-step="${currentStep}"]`);
+      const continueButton = currentStepElement?.querySelector('.custom-product-steps__button:not(.custom-product-steps__button--back)');
+      const stepVariantId = continueButton?.getAttribute('data-variant-id');
+
+      // Save checkbox states
+      const checkedCheckboxes = currentStepElement?.querySelectorAll('.custom-product-steps__checkbox-input:checked');
+      const checkboxData = [];
+      if (checkedCheckboxes) {
+        checkedCheckboxes.forEach(checkbox => {
+          checkboxData.push({
+            id: checkbox.id,
+            value: checkbox.value,
+            priceModifier: checkbox.getAttribute('data-price-modifier'),
+            variantId: checkbox.getAttribute('data-variant-id')
+          });
+        });
+      }
+
+      // Save nested checkbox states
+      const checkedNestedCheckboxes = currentStepElement?.querySelectorAll('.custom-product-steps__nested-checkbox-input:checked');
+      const nestedCheckboxData = [];
+      if (checkedNestedCheckboxes) {
+        checkedNestedCheckboxes.forEach(checkbox => {
+          const nestedId = checkbox.id;
+          const quantityInput = currentStepElement?.querySelector(`.custom-product-steps__quantity-input[data-nested-id="${nestedId}"]`);
+          const quantity = quantityInput ? parseInt(quantityInput.value) || 1 : 1;
+
+          nestedCheckboxData.push({
+            id: checkbox.id,
+            value: checkbox.value,
+            priceModifier: checkbox.getAttribute('data-price-modifier'),
+            variantId: checkbox.getAttribute('data-variant-id'),
+            quantity: quantity
+          });
+        });
+      }
+
+      if (selectedOption) {
+        stepData[currentStep] = {
+          value: selectedOption.value,
+          id: selectedOption.id,
+          priceModifier: selectedOption.getAttribute('data-price-modifier'),
+          optionVariantId: selectedOption.getAttribute('data-variant-id'),
+          stepVariantId: stepVariantId,
+          checkboxes: checkboxData,
+          nestedCheckboxes: nestedCheckboxData
+        };
+      }
+
+      // Calculate next step number
+      const allSteps = document.querySelectorAll('.custom-product-steps__step-content');
+      const stepNumbers = Array.from(allSteps).map(step => parseInt(step.getAttribute('data-step'))).sort((a, b) => a - b);
+
+      const currentIndex = stepNumbers.indexOf(currentStep);
+      const nextIndex = currentIndex + direction;
+
+      // Check if this is the last step
+      const isLastStep = nextIndex >= stepNumbers.length;
+
+      // If moving forward (direction = 1)
+      if (direction === 1) {
+        if (batchMode) {
+          // BATCH MODE: Just save and navigate, add all products on final step
+          if (isLastStep) {
+            // This is the final step - add all collected products
+            addAllProductsToCart()
+              .then(() => {
+                proceedToNextStep(nextIndex, stepNumbers);
+              })
+              .catch(error => {
+                alert('Error adding products to cart. Please try again.');
+              });
+          } else {
+            // Not the final step yet, just navigate
+            proceedToNextStep(nextIndex, stepNumbers);
+          }
+        } else {
+          // IMMEDIATE MODE: Add products at each step (original behavior)
+          // Get the selected option's product
+          const optionVariantId = selectedOption?.getAttribute('data-variant-id');
+
+          // Collect products to add for this step
+          const productsToAdd = [];
+          if (stepVariantId) {
+            productsToAdd.push({ id: stepVariantId, type: 'step main product' });
+          }
+          if (optionVariantId) {
+            productsToAdd.push({ id: optionVariantId, type: 'selected option product' });
+          }
+
+          // Add checkbox products
+          checkboxData.forEach(checkboxInfo => {
+            if (checkboxInfo.variantId) {
+              productsToAdd.push({ id: checkboxInfo.variantId, type: `checkbox: ${checkboxInfo.value}` });
+            }
+          });
+
+          // Add nested checkbox products
+          nestedCheckboxData.forEach(nestedInfo => {
+            if (nestedInfo.variantId) {
+              productsToAdd.push({
+                id: nestedInfo.variantId,
+                type: `nested checkbox: ${nestedInfo.value}`,
+                quantity: nestedInfo.quantity || 1
+              });
+            }
+          });
+
+          if (productsToAdd.length > 0) {
+            // Add products to cart immediately
+            addProductsSequentially(productsToAdd)
+              .then(() => {
+                proceedToNextStep(nextIndex, stepNumbers);
+              })
+              .catch(error => {
+                alert('Error adding products to cart. Please try again.');
+              });
+          } else {
+            // No products to add, just navigate
+            proceedToNextStep(nextIndex, stepNumbers);
+          }
+        }
+      } else {
+        // Moving backward, just navigate
+        proceedToNextStep(nextIndex, stepNumbers);
+      }
+    };
+
+    // Function to add multiple products sequentially
+    function addProductsSequentially(products) {
+      return products.reduce((promise, product) => {
+        return promise.then(() => {
+          const quantity = product.quantity || 1;
+          return addToCart(product.id, quantity);
+        });
+      }, Promise.resolve());
+    }
+
+    // Function to add all collected products from all steps
+    function addAllProductsToCart() {
+      const allProducts = [];
+
+      // Iterate through all saved step data
+      Object.keys(stepData).forEach(stepNum => {
+        const data = stepData[stepNum];
+
+        // Add step's main product
+        if (data.stepVariantId) {
+          allProducts.push({
+            id: data.stepVariantId,
+            type: `Step ${stepNum} - main product`
+          });
+        }
+
+        // Add selected option's product
+        if (data.optionVariantId) {
+          allProducts.push({
+            id: data.optionVariantId,
+            type: `Step ${stepNum} - ${data.value}`
+          });
+        }
+
+        // Add checkbox products
+        if (data.checkboxes && data.checkboxes.length > 0) {
+          data.checkboxes.forEach(checkboxInfo => {
+            if (checkboxInfo.variantId) {
+              allProducts.push({
+                id: checkboxInfo.variantId,
+                type: `Step ${stepNum} - checkbox: ${checkboxInfo.value}`
+              });
+            }
+          });
+        }
+
+        // Add nested checkbox products
+        if (data.nestedCheckboxes && data.nestedCheckboxes.length > 0) {
+          data.nestedCheckboxes.forEach(nestedInfo => {
+            if (nestedInfo.variantId) {
+              allProducts.push({
+                id: nestedInfo.variantId,
+                type: `Step ${stepNum} - nested checkbox: ${nestedInfo.value}`,
+                quantity: nestedInfo.quantity || 1
+              });
+            }
+          });
+        }
+      });
+
+      if (allProducts.length > 0) {
+        return addProductsSequentially(allProducts);
+      } else {
+        return Promise.resolve();
+      }
+    }
+
+    function proceedToNextStep(nextIndex, stepNumbers) {
+      if (nextIndex >= 0 && nextIndex < stepNumbers.length) {
+        const nextStepNumber = stepNumbers[nextIndex];
+        showStep(nextStepNumber);
+      } else if (nextIndex >= stepNumbers.length) {
+        // Last step completed
+        if (batchMode) {
+          // Batch mode: All products were just added
+          alert('All products added to cart successfully! You can now view your cart or checkout.');
+          // Optional: Redirect to cart
+          // window.location.href = '/cart';
+        } else {
+          // Immediate mode: Products were already added at each step
+          alert('Configuration complete! All products are in your cart.');
+          // Optional: Redirect to cart
+          // window.location.href = '/cart';
+        }
+      }
+    }
+
+    // Handle browser back/forward buttons
+    window.addEventListener('popstate', function(event) {
+      const urlHash = window.location.hash;
+      if (urlHash && urlHash.startsWith('#step-')) {
+        const stepFromUrl = parseInt(urlHash.replace('#step-', ''));
+        if (!isNaN(stepFromUrl)) {
+          const allSteps = document.querySelectorAll('.custom-product-steps__step-content');
+          const stepNumbers = Array.from(allSteps).map(step => parseInt(step.getAttribute('data-step')));
+
+          if (stepNumbers.includes(stepFromUrl)) {
+            // Use showStep to properly restore state
+            const allStepElements = document.querySelectorAll('.custom-product-steps__step-content');
+            const allImages = document.querySelectorAll('.custom-product-steps__image[data-step-image]');
+
+            allStepElements.forEach(step => step.classList.remove('active-step'));
+            allImages.forEach(img => img.classList.remove('active-step'));
+
+            const targetStep = document.querySelector(`.custom-product-steps__step-content[data-step="${stepFromUrl}"]`);
+            const targetImage = document.querySelector(`.custom-product-steps__image[data-step-image="${stepFromUrl}"]`);
+
+            if (targetStep) {
+              targetStep.classList.add('active-step');
+
+              // Restore previously selected option if exists
+              if (stepData[stepFromUrl] && stepData[stepFromUrl].id) {
+                const savedRadio = document.getElementById(stepData[stepFromUrl].id);
+                if (savedRadio) {
+                  savedRadio.checked = true;
+
+                  // Update visual state
+                  const allOptions = targetStep.querySelectorAll('.custom-product-steps__option');
+                  allOptions.forEach(option => {
+                    const radio = option.querySelector('input[type="radio"]');
+                    if (radio && radio.checked) {
+                      option.classList.add('selected');
+                    } else {
+                      option.classList.remove('selected');
+                    }
+                  });
+
+                  // Update image
+                  if (window.updateStepImage) {
+                    window.updateStepImage(savedRadio);
+                  }
+                }
+
+                // Restore checkbox states
+                if (stepData[stepFromUrl].checkboxes) {
+                  const allCheckboxes = targetStep.querySelectorAll('.custom-product-steps__checkbox-input');
+                  allCheckboxes.forEach(cb => cb.checked = false);
+
+                  stepData[stepFromUrl].checkboxes.forEach(checkboxInfo => {
+                    const checkbox = document.getElementById(checkboxInfo.id);
+                    if (checkbox) {
+                      checkbox.checked = true;
+                    }
+                  });
+                }
+
+                // Restore nested checkbox states
+                if (stepData[stepFromUrl].nestedCheckboxes) {
+                  const allNestedCheckboxes = targetStep.querySelectorAll('.custom-product-steps__nested-checkbox-input');
+                  allNestedCheckboxes.forEach(cb => cb.checked = false);
+
+                  stepData[stepFromUrl].nestedCheckboxes.forEach(nestedInfo => {
+                    const nestedCheckbox = document.getElementById(nestedInfo.id);
+                    if (nestedCheckbox) {
+                      nestedCheckbox.checked = true;
+
+                      // Restore quantity
+                      const quantityInput = targetStep.querySelector(`.custom-product-steps__quantity-input[data-nested-id="${nestedInfo.id}"]`);
+                      if (quantityInput && nestedInfo.quantity) {
+                        quantityInput.value = nestedInfo.quantity;
+                      }
+
+                      // Update visual state
+                      if (window.updateNestedCheckboxState) {
+                        window.updateNestedCheckboxState(nestedCheckbox);
+                      }
+                    }
+                  });
+                }
+              } else {
+                const checkedRadio = targetStep.querySelector('input[type="radio"]:checked');
+                if (checkedRadio && window.updateStepImage) {
+                  window.updateStepImage(checkedRadio);
+                }
+              }
+            }
+
+            if (targetImage) targetImage.classList.add('active-step');
+          }
+        }
+      }
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Product Steps Section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_steps",
+      "label": "Show Step Indicator",
+      "default": true
+    },
+    {
+      "type": "number",
+      "id": "total_steps",
+      "label": "Total Steps",
+      "default": 5,
+      "info": "Total number of steps in the process"
+    },
+    {
+      "type": "checkbox",
+      "id": "accumulate_price",
+      "label": "Accumulate Price from Previous Steps",
+      "default": true,
+      "info": "Enable: Show cumulative price (base + all previous steps + current option). Disable: Show only current step price (base + current option)."
+    },
+    {
+      "type": "checkbox",
+      "id": "batch_add_to_cart",
+      "label": "Add All Products at Final Step",
+      "default": false,
+      "info": "Enable: Products added only at final step. Disable: Products added immediately at each step."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Step",
+      "settings": [
+        {
+          "type": "number",
+          "id": "step_number",
+          "label": "Step Number",
+          "default": 1
+        },
+        {
+          "type": "text",
+          "id": "package_title",
+          "label": "Package Title",
+          "default": "SMART SPLITTER + PROTECTION PACKAGE",
+          "info": "Appears at the top of this step"
+        },
+        {
+          "type": "text",
+          "id": "step_title",
+          "label": "Product Title",
+          "default": "NEMA 14-30 Smart Splitter"
+        },
+        {
+          "type": "text",
+          "id": "step_price",
+          "label": "Product Price",
+          "default": "$449"
+        },
+        {
+          "type": "textarea",
+          "id": "step_description",
+          "label": "Product Description",
+          "default": "Based on your 14-30 outlet."
+        },
+        {
+          "type": "product",
+          "id": "step_product",
+          "label": "Main Product for this Step",
+          "info": "This product will be added to cart when user clicks Continue"
+        },
+        {
+          "type": "header",
+          "content": "Option 1"
+        },
+        {
+          "type": "checkbox",
+          "id": "option_1_default",
+          "label": "Set as Default Selected",
+          "default": true,
+          "info": "Check this to make this option selected by default"
+        },
+        {
+          "type": "image_picker",
+          "id": "option_1_image",
+          "label": "Option 1 - Image",
+          "info": "Image shown when this option is selected"
+        },
+        {
+          "type": "text",
+          "id": "option_1_title",
+          "label": "Option 1 - Title",
+          "default": "Add Protection package"
+        },
+        {
+          "type": "text",
+          "id": "option_1_price",
+          "label": "Option 1 - Price Display",
+          "default": "+$50",
+          "info": "Display text shown to user (e.g., '+$50', 'FREE', '-$20')"
+        },
+        {
+          "type": "text",
+          "id": "option_1_price_modifier",
+          "label": "Option 1 - Price Modifier",
+          "default": "50",
+          "info": "Numeric value to add/subtract (e.g., '50', '0', '-20'). Use 0 for FREE."
+        },
+        {
+          "type": "checkbox",
+          "id": "option_1_hide_check_icon",
+          "label": "Hide Check Icon",
+          "default": false,
+          "info": "Hide the checkmark icons next to features"
+        },
+        {
+          "type": "text",
+          "id": "option_1_feature_1",
+          "label": "Option 1 - Feature 1",
+          "default": "3-Year Warranty"
+        },
+        {
+          "type": "text",
+          "id": "option_1_feature_2",
+          "label": "Option 1 - Feature 2",
+          "default": "60-day Returns / Money-Back Guarantee"
+        },
+        {
+          "type": "product",
+          "id": "option_1_product",
+          "label": "Option 1 - Product",
+          "info": "Product to add when this option is selected (optional)"
+        },
+        {
+          "type": "header",
+          "content": "Option 1 - Expandable Dropdown"
+        },
+        {
+          "type": "checkbox",
+          "id": "option_1_enable_expandable",
+          "label": "Enable Expandable Dropdown",
+          "default": false,
+          "info": "Show expandable section with additional details and nested checkboxes"
+        },
+        {
+          "type": "checkbox",
+          "id": "option_1_default_expanded",
+          "label": "Default Expanded State",
+          "default": false,
+          "info": "Check to have the dropdown open by default"
+        },
+        {
+          "type": "textarea",
+          "id": "option_1_expandable_description",
+          "label": "Expandable Description",
+          "info": "Description text shown in the expandable section"
+        },
+        {
+          "type": "header",
+          "content": "Option 1 - Nested Checkbox 1"
+        },
+        {
+          "type": "text",
+          "id": "option_1_nested_checkbox_1_title",
+          "label": "Nested Checkbox 1 - Title",
+          "info": "Title for nested checkbox (leave blank to hide)"
+        },
+        {
+          "type": "image_picker",
+          "id": "option_1_nested_checkbox_1_image",
+          "label": "Nested Checkbox 1 - Product Image",
+          "info": "Product image shown on the left"
+        },
+        {
+          "type": "text",
+          "id": "option_1_nested_checkbox_1_price",
+          "label": "Nested Checkbox 1 - Price Display",
+          "info": "Display text (e.g., '+$699.00')"
+        },
+        {
+          "type": "text",
+          "id": "option_1_nested_checkbox_1_price_modifier",
+          "label": "Nested Checkbox 1 - Price Modifier",
+          "default": "0",
+          "info": "Numeric value to add (e.g., '699', '0', '-20')"
+        },
+        {
+          "type": "textarea",
+          "id": "option_1_nested_checkbox_1_detail_1",
+          "label": "Nested Checkbox 1 - Detail Line 1",
+          "info": "First spec/detail line (e.g., 'Adjustable Power: 6-40A (9.6 kW), compatible with all NeoCharge Smart Splitters.')"
+        },
+        {
+          "type": "textarea",
+          "id": "option_1_nested_checkbox_1_detail_2",
+          "label": "Nested Checkbox 1 - Detail Line 2",
+          "info": "Second spec/detail line (e.g., 'Universal: Works with all EVs (Tesla adapter included).')"
+        },
+        {
+          "type": "textarea",
+          "id": "option_1_nested_checkbox_1_detail_3",
+          "label": "Nested Checkbox 1 - Detail Line 3",
+          "info": "Third spec/detail line"
+        },
+        {
+          "type": "textarea",
+          "id": "option_1_nested_checkbox_1_detail_4",
+          "label": "Nested Checkbox 1 - Detail Line 4",
+          "info": "Fourth spec/detail line"
+        },
+        {
+          "type": "product",
+          "id": "option_1_nested_checkbox_1_product",
+          "label": "Nested Checkbox 1 - Product",
+          "info": "Product to add when this checkbox is checked"
+        },
+        {
+          "type": "header",
+          "content": "Option 1 - Nested Checkbox 2"
+        },
+        {
+          "type": "text",
+          "id": "option_1_nested_checkbox_2_title",
+          "label": "Nested Checkbox 2 - Title",
+          "info": "Title for nested checkbox (leave blank to hide)"
+        },
+        {
+          "type": "image_picker",
+          "id": "option_1_nested_checkbox_2_image",
+          "label": "Nested Checkbox 2 - Product Image",
+          "info": "Product image shown on the left"
+        },
+        {
+          "type": "text",
+          "id": "option_1_nested_checkbox_2_price",
+          "label": "Nested Checkbox 2 - Price Display",
+          "info": "Display text (e.g., '+$349.00')"
+        },
+        {
+          "type": "text",
+          "id": "option_1_nested_checkbox_2_price_modifier",
+          "label": "Nested Checkbox 2 - Price Modifier",
+          "default": "0",
+          "info": "Numeric value to add (e.g., '349', '0', '-20')"
+        },
+        {
+          "type": "textarea",
+          "id": "option_1_nested_checkbox_2_detail_1",
+          "label": "Nested Checkbox 2 - Detail Line 1",
+          "info": "First spec/detail line"
+        },
+        {
+          "type": "textarea",
+          "id": "option_1_nested_checkbox_2_detail_2",
+          "label": "Nested Checkbox 2 - Detail Line 2",
+          "info": "Second spec/detail line"
+        },
+        {
+          "type": "textarea",
+          "id": "option_1_nested_checkbox_2_detail_3",
+          "label": "Nested Checkbox 2 - Detail Line 3",
+          "info": "Third spec/detail line"
+        },
+        {
+          "type": "textarea",
+          "id": "option_1_nested_checkbox_2_detail_4",
+          "label": "Nested Checkbox 2 - Detail Line 4",
+          "info": "Fourth spec/detail line"
+        },
+        {
+          "type": "product",
+          "id": "option_1_nested_checkbox_2_product",
+          "label": "Nested Checkbox 2 - Product",
+          "info": "Product to add when this checkbox is checked"
+        },
+        {
+          "type": "header",
+          "content": "Option 1 - Nested Checkbox 3"
+        },
+        {
+          "type": "text",
+          "id": "option_1_nested_checkbox_3_title",
+          "label": "Nested Checkbox 3 - Title",
+          "info": "Title for nested checkbox (leave blank to hide)"
+        },
+        {
+          "type": "image_picker",
+          "id": "option_1_nested_checkbox_3_image",
+          "label": "Nested Checkbox 3 - Product Image",
+          "info": "Product image shown on the left"
+        },
+        {
+          "type": "text",
+          "id": "option_1_nested_checkbox_3_price",
+          "label": "Nested Checkbox 3 - Price Display",
+          "info": "Display text (e.g., '+$99.00')"
+        },
+        {
+          "type": "text",
+          "id": "option_1_nested_checkbox_3_price_modifier",
+          "label": "Nested Checkbox 3 - Price Modifier",
+          "default": "0",
+          "info": "Numeric value to add (e.g., '99', '0', '-20')"
+        },
+        {
+          "type": "textarea",
+          "id": "option_1_nested_checkbox_3_detail_1",
+          "label": "Nested Checkbox 3 - Detail Line 1",
+          "info": "First spec/detail line"
+        },
+        {
+          "type": "textarea",
+          "id": "option_1_nested_checkbox_3_detail_2",
+          "label": "Nested Checkbox 3 - Detail Line 2",
+          "info": "Second spec/detail line"
+        },
+        {
+          "type": "textarea",
+          "id": "option_1_nested_checkbox_3_detail_3",
+          "label": "Nested Checkbox 3 - Detail Line 3",
+          "info": "Third spec/detail line"
+        },
+        {
+          "type": "textarea",
+          "id": "option_1_nested_checkbox_3_detail_4",
+          "label": "Nested Checkbox 3 - Detail Line 4",
+          "info": "Fourth spec/detail line"
+        },
+        {
+          "type": "product",
+          "id": "option_1_nested_checkbox_3_product",
+          "label": "Nested Checkbox 3 - Product",
+          "info": "Product to add when this checkbox is checked"
+        },
+        {
+          "type": "header",
+          "content": "Option 2"
+        },
+        {
+          "type": "checkbox",
+          "id": "option_2_default",
+          "label": "Set as Default Selected",
+          "default": false,
+          "info": "Check this to make this option selected by default"
+        },
+        {
+          "type": "image_picker",
+          "id": "option_2_image",
+          "label": "Option 2 - Image",
+          "info": "Image shown when this option is selected"
+        },
+        {
+          "type": "text",
+          "id": "option_2_title",
+          "label": "Option 2 - Title",
+          "default": "Standard Package"
+        },
+        {
+          "type": "text",
+          "id": "option_2_price",
+          "label": "Option 2 - Price Display",
+          "default": "FREE",
+          "info": "Display text shown to user (e.g., '+$50', 'FREE', '-$20')"
+        },
+        {
+          "type": "text",
+          "id": "option_2_price_modifier",
+          "label": "Option 2 - Price Modifier",
+          "default": "0",
+          "info": "Numeric value to add/subtract (e.g., '50', '0', '-20'). Use 0 for FREE."
+        },
+        {
+          "type": "checkbox",
+          "id": "option_2_hide_check_icon",
+          "label": "Hide Check Icon",
+          "default": false,
+          "info": "Hide the checkmark icons next to features"
+        },
+        {
+          "type": "text",
+          "id": "option_2_feature_1",
+          "label": "Option 2 - Feature 1",
+          "default": "3-Year Warranty"
+        },
+        {
+          "type": "text",
+          "id": "option_2_feature_2",
+          "label": "Option 2 - Feature 2",
+          "default": "60-day Returns / Money-Back Guarantee"
+        },
+        {
+          "type": "product",
+          "id": "option_2_product",
+          "label": "Option 2 - Product",
+          "info": "Product to add when this option is selected (optional)"
+        },
+        {
+          "type": "header",
+          "content": "Option 3"
+        },
+        {
+          "type": "checkbox",
+          "id": "option_3_default",
+          "label": "Set as Default Selected",
+          "default": false,
+          "info": "Check this to make this option selected by default"
+        },
+        {
+          "type": "image_picker",
+          "id": "option_3_image",
+          "label": "Option 3 - Image",
+          "info": "Image shown when this option is selected"
+        },
+        {
+          "type": "text",
+          "id": "option_3_title",
+          "label": "Option 3 - Title"
+        },
+        {
+          "type": "text",
+          "id": "option_3_price",
+          "label": "Option 3 - Price Display",
+          "info": "Display text shown to user (e.g., '+$50', 'FREE', '-$20')"
+        },
+        {
+          "type": "text",
+          "id": "option_3_price_modifier",
+          "label": "Option 3 - Price Modifier",
+          "default": "0",
+          "info": "Numeric value to add/subtract (e.g., '50', '0', '-20'). Use 0 for FREE."
+        },
+        {
+          "type": "checkbox",
+          "id": "option_3_hide_check_icon",
+          "label": "Hide Check Icon",
+          "default": false,
+          "info": "Hide the checkmark icons next to features"
+        },
+        {
+          "type": "text",
+          "id": "option_3_feature_1",
+          "label": "Option 3 - Feature 1"
+        },
+        {
+          "type": "text",
+          "id": "option_3_feature_2",
+          "label": "Option 3 - Feature 2"
+        },
+        {
+          "type": "product",
+          "id": "option_3_product",
+          "label": "Option 3 - Product",
+          "info": "Product to add when this option is selected (optional)"
+        },
+        {
+          "type": "header",
+          "content": "Option 4"
+        },
+        {
+          "type": "checkbox",
+          "id": "option_4_default",
+          "label": "Set as Default Selected",
+          "default": false,
+          "info": "Check this to make this option selected by default"
+        },
+        {
+          "type": "image_picker",
+          "id": "option_4_image",
+          "label": "Option 4 - Image",
+          "info": "Image shown when this option is selected"
+        },
+        {
+          "type": "text",
+          "id": "option_4_title",
+          "label": "Option 4 - Title"
+        },
+        {
+          "type": "text",
+          "id": "option_4_price",
+          "label": "Option 4 - Price Display",
+          "info": "Display text shown to user (e.g., '+$50', 'FREE', '-$20')"
+        },
+        {
+          "type": "text",
+          "id": "option_4_price_modifier",
+          "label": "Option 4 - Price Modifier",
+          "default": "0",
+          "info": "Numeric value to add/subtract (e.g., '50', '0', '-20'). Use 0 for FREE."
+        },
+        {
+          "type": "checkbox",
+          "id": "option_4_hide_check_icon",
+          "label": "Hide Check Icon",
+          "default": false,
+          "info": "Hide the checkmark icons next to features"
+        },
+        {
+          "type": "text",
+          "id": "option_4_feature_1",
+          "label": "Option 4 - Feature 1"
+        },
+        {
+          "type": "text",
+          "id": "option_4_feature_2",
+          "label": "Option 4 - Feature 2"
+        },
+        {
+          "type": "product",
+          "id": "option_4_product",
+          "label": "Option 4 - Product",
+          "info": "Product to add when this option is selected (optional)"
+        },
+        {
+          "type": "header",
+          "content": "Option 5"
+        },
+        {
+          "type": "checkbox",
+          "id": "option_5_default",
+          "label": "Set as Default Selected",
+          "default": false,
+          "info": "Check this to make this option selected by default"
+        },
+        {
+          "type": "image_picker",
+          "id": "option_5_image",
+          "label": "Option 5 - Image",
+          "info": "Image shown when this option is selected"
+        },
+        {
+          "type": "text",
+          "id": "option_5_title",
+          "label": "Option 5 - Title"
+        },
+        {
+          "type": "text",
+          "id": "option_5_price",
+          "label": "Option 5 - Price Display",
+          "info": "Display text shown to user (e.g., '+$50', 'FREE', '-$20')"
+        },
+        {
+          "type": "text",
+          "id": "option_5_price_modifier",
+          "label": "Option 5 - Price Modifier",
+          "default": "0",
+          "info": "Numeric value to add/subtract (e.g., '50', '0', '-20'). Use 0 for FREE."
+        },
+        {
+          "type": "checkbox",
+          "id": "option_5_hide_check_icon",
+          "label": "Hide Check Icon",
+          "default": false,
+          "info": "Hide the checkmark icons next to features"
+        },
+        {
+          "type": "text",
+          "id": "option_5_feature_1",
+          "label": "Option 5 - Feature 1"
+        },
+        {
+          "type": "text",
+          "id": "option_5_feature_2",
+          "label": "Option 5 - Feature 2"
+        },
+        {
+          "type": "product",
+          "id": "option_5_product",
+          "label": "Option 5 - Product",
+          "info": "Product to add when this option is selected (optional)"
+        },
+        {
+          "type": "header",
+          "content": "Checkbox Option 1"
+        },
+        {
+          "type": "text",
+          "id": "checkbox_1_title",
+          "label": "Checkbox 1 - Title",
+          "info": "Title for the optional checkbox item"
+        },
+        {
+          "type": "text",
+          "id": "checkbox_1_price",
+          "label": "Checkbox 1 - Price Display",
+          "info": "Display text shown to user (e.g., '+$X', 'Optional')"
+        },
+        {
+          "type": "text",
+          "id": "checkbox_1_price_modifier",
+          "label": "Checkbox 1 - Price Modifier",
+          "default": "0",
+          "info": "Numeric value to add when checked (e.g., '50', '100')"
+        },
+        {
+          "type": "textarea",
+          "id": "checkbox_1_description",
+          "label": "Checkbox 1 - Description",
+          "info": "Description text under the checkbox title"
+        },
+        {
+          "type": "textarea",
+          "id": "checkbox_1_note",
+          "label": "Checkbox 1 - Note (Italic)",
+          "info": "Additional note in italic style"
+        },
+        {
+          "type": "product",
+          "id": "checkbox_1_product",
+          "label": "Checkbox 1 - Product",
+          "info": "Product to add when this checkbox is checked (optional)"
+        },
+        {
+          "type": "header",
+          "content": "Checkbox Option 2"
+        },
+        {
+          "type": "text",
+          "id": "checkbox_2_title",
+          "label": "Checkbox 2 - Title",
+          "info": "Title for the optional checkbox item"
+        },
+        {
+          "type": "text",
+          "id": "checkbox_2_price",
+          "label": "Checkbox 2 - Price Display",
+          "info": "Display text shown to user (e.g., '+$X', 'Optional')"
+        },
+        {
+          "type": "text",
+          "id": "checkbox_2_price_modifier",
+          "label": "Checkbox 2 - Price Modifier",
+          "default": "0",
+          "info": "Numeric value to add when checked (e.g., '50', '100')"
+        },
+        {
+          "type": "textarea",
+          "id": "checkbox_2_description",
+          "label": "Checkbox 2 - Description",
+          "info": "Description text under the checkbox title"
+        },
+        {
+          "type": "textarea",
+          "id": "checkbox_2_note",
+          "label": "Checkbox 2 - Note (Italic)",
+          "info": "Additional note in italic style"
+        },
+        {
+          "type": "product",
+          "id": "checkbox_2_product",
+          "label": "Checkbox 2 - Product",
+          "info": "Product to add when this checkbox is checked (optional)"
+        },
+        {
+          "type": "header",
+          "content": "Buttons"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Continue Button Text",
+          "default": "Continue"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_back_button",
+          "label": "Show Back Button",
+          "default": true,
+          "info": "Show/hide the back button for this step"
+        },
+        {
+          "type": "text",
+          "id": "back_button_text",
+          "label": "Back Button Text",
+          "default": "Back",
+          "info": "Only shows if 'Show Back Button' is enabled and step > 1"
+        },
+        {
+          "type": "header",
+          "content": "Custom Button"
+        },
+        {
+          "type": "checkbox",
+          "id": "enable_custom_button",
+          "label": "Enable Custom Button",
+          "default": false,
+          "info": "Show an additional custom button with link"
+        },
+        {
+          "type": "text",
+          "id": "custom_button_text",
+          "label": "Custom Button Text",
+          "default": "Learn More",
+          "info": "Text displayed on the custom button"
+        },
+        {
+          "type": "url",
+          "id": "custom_button_link",
+          "label": "Custom Button Link",
+          "info": "URL where the button should link to"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Steps Section",
+      "blocks": [
+        {
+          "type": "step",
+          "settings": {
+            "step_number": 1,
+            "package_title": "SMART SPLITTER + PROTECTION PACKAGE",
+            "step_title": "NEMA 14-30 Smart Splitter",
+            "step_price": "$449",
+            "step_description": "Based on your 14-30 outlet.",
+            "button_text": "Continue",
+            "option_1_title": "Add Protection package",
+            "option_1_price": "+$50",
+            "option_1_feature_1": "3-Year Warranty",
+            "option_1_feature_2": "60-day Returns / Money-Back Guarantee",
+            "option_2_title": "Standard Package",
+            "option_2_price": "FREE",
+            "option_2_feature_1": "3-Year Warranty",
+            "option_2_feature_2": "60-day Returns / Money-Back Guarantee"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
