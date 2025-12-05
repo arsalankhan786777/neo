@@ -612,19 +612,19 @@
     {% for block in section.blocks %}
       <div class="custom-product-steps__image" data-step-image="{{ block.settings.step_number }}" id="step-{{ block.settings.step_number }}-images">
         {% comment %} Option-specific images {% endcomment %}
-        {% if block.settings.option_1_image %}
+        {% if block.settings.option_1_image and block.settings.option_1_title | strip != blank %}
           <img class="option-image" data-option="option-{{ block.id }}-1" src="{{ block.settings.option_1_image | img_url: 'master' }}" alt="{{ block.settings.option_1_title }}">
         {% endif %}
-        {% if block.settings.option_2_image %}
+        {% if block.settings.option_2_image and block.settings.option_2_title | strip != blank %}
           <img class="option-image" data-option="option-{{ block.id }}-2" src="{{ block.settings.option_2_image | img_url: 'master' }}" alt="{{ block.settings.option_2_title }}">
         {% endif %}
-        {% if block.settings.option_3_image %}
+        {% if block.settings.option_3_image and block.settings.option_3_title | strip != blank %}
           <img class="option-image" data-option="option-{{ block.id }}-3" src="{{ block.settings.option_3_image | img_url: 'master' }}" alt="{{ block.settings.option_3_title }}">
         {% endif %}
-        {% if block.settings.option_4_image %}
+        {% if block.settings.option_4_image and block.settings.option_4_title | strip != blank %}
           <img class="option-image" data-option="option-{{ block.id }}-4" src="{{ block.settings.option_4_image | img_url: 'master' }}" alt="{{ block.settings.option_4_title }}">
         {% endif %}
-        {% if block.settings.option_5_image %}
+        {% if block.settings.option_5_image and block.settings.option_5_title | strip != blank %}
           <img class="option-image" data-option="option-{{ block.id }}-5" src="{{ block.settings.option_5_image | img_url: 'master' }}" alt="{{ block.settings.option_5_title }}">
         {% endif %}
       </div>
@@ -674,7 +674,7 @@
           </div>
           <div class="custom-product-steps__options">
             {% comment %} Option 1 {% endcomment %}
-            {% if block.settings.option_1_title != blank %}
+            {% if block.settings.option_1_title | strip != blank %}
               <div class="custom-product-steps__option">
                 <div class="custom-product-steps__option-header">
                   <div class="custom-product-steps__option-radio">
@@ -908,7 +908,7 @@
             {% endif %}
 
             {% comment %} Option 2 {% endcomment %}
-            {% if block.settings.option_2_title != blank %}
+            {% if block.settings.option_2_title | strip != blank %}
               <div class="custom-product-steps__option">
                 <div class="custom-product-steps__option-header">
                   <div class="custom-product-steps__option-radio">
@@ -1048,7 +1048,7 @@
             {% endif %}
 
             {% comment %} Option 3 {% endcomment %}
-            {% if block.settings.option_3_title != blank %}
+            {% if block.settings.option_3_title | strip != blank %}
               <div class="custom-product-steps__option">
                 <div class="custom-product-steps__option-header">
                   <div class="custom-product-steps__option-radio">
@@ -1188,7 +1188,7 @@
             {% endif %}
 
             {% comment %} Option 4 {% endcomment %}
-            {% if block.settings.option_4_title != blank %}
+            {% if block.settings.option_4_title | strip != blank %}
               <div class="custom-product-steps__option">
                 <div class="custom-product-steps__option-header">
                   <div class="custom-product-steps__option-radio">
@@ -1242,7 +1242,7 @@
             {% endif %}
 
             {% comment %} Option 5 {% endcomment %}
-            {% if block.settings.option_5_title != blank %}
+            {% if block.settings.option_5_title | strip != blank %}
               <div class="custom-product-steps__option">
                 <div class="custom-product-steps__option-header">
                   <div class="custom-product-steps__option-radio">
